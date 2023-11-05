@@ -1,14 +1,15 @@
 <?php
 	
 	session_start();
-	if(!isset($_POST['login'] || !isset($_POST['password'])) {
-		header('Location: index.php');
-		exit();
+	if (!isset($_POST['login']) || !isset($_POST['password'])) {
+    header('Location: index.php');
+    exit();
 	}
-	
+
 	require_once "connection.php";
-	
+
 	$connection = @new mysqli($host, $user, $password, $dbName);
+
 	
 	if($connection->connect_errno != 0){
 		echo "Error: ".$connection->connect_errno;
