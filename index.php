@@ -17,12 +17,12 @@
 	<body>
 		
 		<form action ="login.php" method = "post">
-		  
-		  <input type ="text" name = "login"><br><br>
+			<label for = "login">Login:</label>
+			<input type ="text" name = "login"><br><br>
 		 
-		  <input type ="password" name = "password"><br><br>
-		  <input type ="submit" value = "Sign in">
-		  
+			<label for = "password">Password:</label>
+			<input type ="password" name = "password"><br><br>
+			<input type ="submit" value = "Sign in">
 		</form> 
 		
 		<?php 

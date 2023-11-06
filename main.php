@@ -23,8 +23,8 @@
 			<ul>
 				<li><a href="index.php">Strona główna</a></li>
 				<li><a href="days.php">Pozostałe dni</a></li>
-				<li><a href="control.php">Ustawienia</a></li>
-				<li><a href="logout.php">Wyloguj</a></li>
+				<li><a href="settings.php">Settings</a></li>
+				<li><a href="logout.php">Sign out</a></li>
 			</ul>
 		</nav>
 		
