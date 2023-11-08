@@ -9,7 +9,7 @@
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     } else {
-        echo "Connected successfully";
+        echo "Connected successfully<br>";
 
         if (isset($_POST["temperature"]) && isset($_POST["humidity"]) && isset($_POST["sensorName"])) {
             $t = $_POST["temperature"];
@@ -19,12 +19,12 @@
             $sql = "INSERT INTO `measurementstoday`(`temperature`, `humidity`, `sensorName`) VALUES (" . $t . "," . $h . ",'" . $s . "')";
 
             if (mysqli_query($conn, $sql)) {
-                echo "New record created successfully";
+                echo "New record created successfully<br>";
             } else {
                 echo "Error: " . $sql . " " . mysqli_error($conn);
             }
         } else {
-            echo "No data";
+            echo "<br>No data";
         }
 
         mysqli_close($conn);
