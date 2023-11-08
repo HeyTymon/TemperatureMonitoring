@@ -16,7 +16,7 @@
             $h = $_POST["humidity"];
             $s = $_POST["sensorName"];
 
-            $sql = "INSERT INTO `measurementstoday`(`temperature`, `humidity`, `sensorName`) VALUES (" . $t . "," . $h . ",'$sensorName')";
+            $sql = "INSERT INTO `measurementstoday`(`temperature`, `humidity`, `sensorName`) VALUES (" . $t . "," . $h . ",'" . $s . "')";
 
             if (mysqli_query($conn, $sql)) {
                 echo "New record created successfully";
