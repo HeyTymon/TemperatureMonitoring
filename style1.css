@@ -60,9 +60,7 @@ a:hover {
 	text-align: center;
 	color: white;
 	
-	border: 2px;
-	border-style: solid;
-	border-color: red;
+
 }
 
 #recentHumidityArticle {
@@ -74,9 +72,6 @@ a:hover {
 	text-align: center;
 	color: white;
 	
-	border: 2px;
-	border-style: solid;
-	border-color: red;
 }
 
 #recentPreasureArticle {
@@ -88,9 +83,6 @@ a:hover {
 	text-align: center;
 	color: white;
 	
-	border: 2px;
-	border-style: solid;
-	border-color: red;
 }
 
 #statsArticle {

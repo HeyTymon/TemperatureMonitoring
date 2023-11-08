@@ -14,19 +14,31 @@
 		echo "Error: ".$connection->connect_errno;
 	} else {
 		
-		$newUserName = $_POST['newUserName'];
+		$newUserName = $_POST['newUserName']; //sprawdzać czy taki user już istnieje
 		$newPassword = $_POST['newPassword'];
 		$newPassword2 = $_POST['newPassword2'];
-		$isUserAdmin = $_POST['isUserAdmin']; //to nie działa 
+		$isUserAdmin = $_POST['isUserAdmin'];  
 		
 		if($newPassword == $newPassword2) {
-			$sqlQuery = "INSERT INTO `users` (`id`, `login`, `password`, `isAdmin`) VALUES (NULL, '$newUserName', '$newPassword', 'isUserAdmin')";
+
+			$sqlQuery1 = "SELECT * FROM `users` WHERE login = '$newUserName'";
+			$sqlQuery2 = "INSERT INTO `users` (`id`, `login`, `password`, `isAdmin`) VALUES (NULL, '$newUserName', '$newPassword', '$isUserAdmin')";
 			
-			if(@$connection->query($sqlQuery)) {
-				$_SESSION['isCreated'] = true;
-				header('Location: settings.php');
+			if($result = @$connection->query($sqlQuery1)) {
+				if($result->num_rows == 0) {
+					if(@$connection->query($sqlQuery2)) {
+						$_SESSION['isCreated'] = true;
+						header('Location: settings.php');
+					} else {
+						$_SESSION['isDataNotCorrect'] = true; 
+						header('Location: settings.php');
+					}
+				} else {
+					$_SESSION['dataTaken'] = true;
+                	header('Location: settings.php');
+				}
 			} else {
-				$_SESSION['isDataNotCorrect'] = true; //okodować to w settings.php
+				echo "error"; //todo
 			}
 			
 		} else {
