@@ -38,6 +38,8 @@
 							<th>Date</th>
 							<th>Sensor name</th>
 						</tr>
+
+						<!-- Zrobić to za pomocą funckji -->
 						<?php
 							$conn = new mysqli("localhost", "root", "", "sstwbi");
 				

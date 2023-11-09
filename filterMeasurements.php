@@ -31,13 +31,13 @@
                 } break;
 
                 case "Min values": {
-                    $_SESSION['filterValues1'] = "SELECT `id`, `temperature`,`date`, `sensorName` FROM `measurementstoday` ORDER BY temperature DESC LIMIT $limit";
-                    $_SESSION['filterValues2'] = "SELECT `id`, `humidity`,`date`, `sensorName` FROM `measurementstoday` ORDER BY `humidity` DESC LIMIT $limit";
+                    $_SESSION['filterValues1'] = "SELECT `id`, `temperature`,`date`, `sensorName` FROM `measurementstoday` ORDER BY temperature ASC LIMIT $limit";
+                    $_SESSION['filterValues2'] = "SELECT `id`, `humidity`,`date`, `sensorName` FROM `measurementstoday` ORDER BY `humidity` ASC LIMIT $limit";
                 } break;
 
                 case "Max values": {
-                    $_SESSION['filterValues1'] = "SELECT `id`, `temperature`,`date`, `sensorName` FROM `measurementstoday` ORDER BY temperature ASC LIMIT $limit";
-                    $_SESSION['filterValues2'] = "SELECT `id`, `humidity`,`date`, `sensorName` FROM `measurementstoday` ORDER BY `humidity` ASC LIMIT $limit";
+                    $_SESSION['filterValues1'] = "SELECT `id`, `temperature`,`date`, `sensorName` FROM `measurementstoday` ORDER BY temperature DESC LIMIT $limit";
+                    $_SESSION['filterValues2'] = "SELECT `id`, `humidity`,`date`, `sensorName` FROM `measurementstoday` ORDER BY `humidity` DESC LIMIT $limit";
                 } break;
 
                 case "Sensor name": {
