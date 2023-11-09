@@ -9,7 +9,7 @@
 
 const char* ssid = "Korbank-internet-df13_2.4GHz";
 const char* password = "15caa495";
-IPAddress staticIP(172, 16, 1, 56);  
+IPAddress staticIP(172, 16, 1, 59);  
 IPAddress gateway(172, 16, 1, 1);     
 IPAddress subnet(255, 255, 255, 0);    
 
