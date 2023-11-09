@@ -7,7 +7,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang = "pl">
+<html>
 	<head>
 		<meta charset = "utf-8"/>
 		<title>System monitorowania temperatury</title>
@@ -18,11 +18,11 @@
 	</head>
 	<body>
 		
-		<header id = "mainHeader"><h2>System monitorowania i regulacji temperatury w budynku inteligentnym</h2><h3><?php echo "Witaj ".$_SESSION['login'] ?></header>
+		<header id = "mainHeader"><h1>S. S. T. W. B. I.</h1><h2><?php echo "Welcome ".$_SESSION['login'] ?></h2></header>
 		<nav id = "menuNav">
 			<ul>
-				<li><a href="index.php">Odśwież wyniki pomiarów</a></li>
-				<li><a href="days.php">Pozostałe dni</a></li>
+				<li><a href="index.php">Clear filters</a></li>
+				<li><a href="days.php">Other days</a></li>
 				<li><a href="settings.php">Settings</a></li>
 				<li><a href="logout.php">Sign out</a></li>
 			</ul>
@@ -34,19 +34,23 @@
 					<table border="1">
 						<tr>
 							<th>ID</th>
-							<th>Temperatura</th>
-							<th>Data</th>
-							<th>Nazwa czujnika</th>
+							<th>Temperature</th>
+							<th>Date</th>
+							<th>Sensor name</th>
 						</tr>
 						<?php
-							$conn = new mysqli("localhost", "root", "", "bme280");
+							$conn = new mysqli("localhost", "root", "", "sstwbi");
 				
 							if ($conn->connect_error) {
 								die("Error: " . $conn->connect_error);
 							}
-				
-							$sql = "SELECT id, temperature, time, sensor_name FROM measurements ORDER BY time DESC LIMIT 50";
-				
+						
+							if(isset($_SESSION['filterValues1'])) {
+								$sql = $_SESSION['filterValues1'];
+							} else {
+								$sql = "SELECT id, temperature, date, sensorName FROM measurementstoday ORDER BY date DESC LIMIT 50";
+							}
+							
 							$result = $conn->query($sql);
 				
 							if ($result->num_rows > 0) {
@@ -54,13 +58,15 @@
 									echo "<tr>";
 									echo "<td>" . $row["id"] . "</td>";
 									echo "<td>" . $row["temperature"] . "</td>";
-									echo "<td>" . $row["time"] . "</td>";
-									echo "<td>" . $row["sensor_name"] . "</td>";
+									echo "<td>" . $row["date"] . "</td>";
+									echo "<td>" . $row["sensorName"] . "</td>";
 									echo "</tr>";
 								}
 							} else {
 								echo "Brak danych do wyświetlenia";
 							}
+
+							unset($_SESSION['filterValues1']);
 				
 							$conn->close();
 						?>
@@ -71,18 +77,22 @@
 					<table border="1">
 						<tr>
 							<th>ID</th>
-							<th>Wilgotność</th>
-							<th>Data</th>
-							<th>Nazwa czujnika</th>
+							<th>Humidity</th>
+							<th>Date</th>
+							<th>Sensor name</th>
 						</tr>
 						<?php
-							$conn = new mysqli("localhost", "root", "", "bme280");
+							$conn = new mysqli("localhost", "root", "", "sstwbi");
 
 							if ($conn->connect_error) {
 								die("Error: " . $conn->connect_error);
 							}
 
-							$sql = "SELECT id, humidity, time, sensor_name FROM measurements ORDER BY time DESC LIMIT 50";
+							if(isset($_SESSION['filterValues2'])) {
+								$sql = $_SESSION['filterValues2'];
+							} else {
+								$sql = "SELECT id, humidity, date, sensorName FROM measurementstoday ORDER BY date DESC LIMIT 50";
+							}
 
 							$result = $conn->query($sql);
 
@@ -91,37 +101,43 @@
 									echo "<tr>";
 									echo "<td>" . $row["id"] . "</td>";
 									echo "<td>" . $row["humidity"] . "</td>";
-									echo "<td>" . $row["time"] . "</td>";
-									echo "<td>" . $row["sensor_name"] . "</td>";
+									echo "<td>" . $row["date"] . "</td>";
+									echo "<td>" . $row["sensorName"] . "</td>";
 									echo "</tr>";
 								}
 							} else {
 								echo "Brak danych do wyświetlenia";
 							}
 
+							unset($_SESSION['filterValues2']);
+
 							$conn->close();
 						?>
     				</table>
 				</section>
+
 				<section id = "recentPreasureArticle"> 
-					Filter the measurements </br>
-					
+					<h2>Filter the measurements</h2>
+					<form  action = "filterMeasurements.php" method = "post">
+						<label for = "parameter">Filtr parameter</label>
+						<select name = "parameter">
+							<option>Date ASC</option>
+							<option>Date DESC</option>
+							<option>Max values</option>
+							<option>Min value</option>
+							<option>Sensor name</option>
+						</select><br><br>
+						<label for = "sensor">Sensor name</label>
+						<input type ="text" name = "sensor" value = "Sensor"><br><br>
+						<label for = "limit">Records numer (max 500)</label>
+						<input type = "number" name="limit" min="1" max="500" required><br><br>
+						<input type ="submit" value = "Filter">
+					</form>
 				</section>
 			</article>
 			
 			<article id = "statsArticle">
-				<?php
-					$conn = new mysqli("localhost", "root", "", "bme280");
-
-					if ($conn->connect_error) {
-						die("Error: " . $conn->connect_error);
-					}
-
-					$sql = "SELECT AVG(temperature) AS avg_temp, MAX(temperature) AS max_temp, MIN(temperature) AS min_temp, ABS(AVG(temperature)) AS abs_temp FROM measurements";
-					$result = $conn->query($sql);
-					$row = $result->fetch_assoc();
-					echo $row["avg_temp"] . " ----- " . $row["max_temp"] . " ----- " . $row["min_temp"] . " ----- " . $row["abs_temp"] . " ----- ";
-				?>
+				
 			</article>
 		</main>
 		

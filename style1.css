@@ -97,7 +97,7 @@ a:hover {
 }
 
 #mainFooter {
-	
+	clear: both;
 	background-color: grey;
 		
 	/*font*/
