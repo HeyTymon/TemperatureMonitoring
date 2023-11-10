@@ -11,6 +11,7 @@
 	<head>
 		<meta charset = "utf-8"/>
 		<title>Settings</title>
+		<!--<link rel="stylesheet" href = "style.css" type = "text/css"/> -->
 	</head>
 	<body>
 		<h2>Target temperature</h2>

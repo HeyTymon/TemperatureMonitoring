@@ -43,7 +43,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-
+		<title>Other days stats</title>
 	</head>
 	<body>
 		<label for = "maxTemp">Table 1. Max Temp</label>

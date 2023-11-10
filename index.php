@@ -11,23 +11,24 @@
 <html>
 	<head>
 		<meta charset = "utf-8"/>
-		<title>Logowanie</title>
-		<!--<link rel="stylesheet" href = "style1.css" type = "text/css"/> -->
+		<title>Sign in</title>
+		<link rel="stylesheet" href = "styleLogin.css" type = "text/css"/> 
 	</head>
 	<body>
+		<div class="container">
 		
-		<form action ="login.php" method = "post">
-			<label for = "login">Login:</label>
-			<input type ="text" name = "login"><br><br>
-		 
-			<label for = "password">Password:</label>
-			<input type ="password" name = "password"><br><br>
-			<input type ="submit" value = "Sign in">
-		</form> 
-		
-		<?php 
-			if(isset($_SESSION['loginError'])) echo $_SESSION['loginError'];
-		?>
-		
+			<form action ="login.php" method = "post">
+				<label for = "login">Login:</label>
+				<input type ="text" name = "login"><br><br>
+			
+				<label for = "password">Password:</label>
+				<input type ="password" name = "password"><br><br>
+				<input type ="submit" value = "Sign in">
+			</form> 
+			
+			<?php 
+				if(isset($_SESSION['loginError'])) echo $_SESSION['loginError'];
+			?>
+		</div>
 	</body>
 </html>
