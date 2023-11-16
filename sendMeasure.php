@@ -17,6 +17,7 @@
             } else {
                 echo "Error: " . $sql . " " . mysqli_error($conn);
             }
+            
         } else {
             echo "<br>No data";
         }
