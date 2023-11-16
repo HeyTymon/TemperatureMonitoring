@@ -4,6 +4,8 @@
 		header('Location: index.php');
 		exit();
 	}	
+
+	require_once "connection.php";
 ?>
 
 <!DOCTYPE html>
@@ -39,12 +41,11 @@
 							<th>Sensor name</th>
 						</tr>
 
-						<!-- Zrobić to za pomocą funckji -->
 						<?php
-							$conn = new mysqli("localhost", "root", "", "sstwbi");
+							$connection = new mysqli($host, $user, $password, $dbName);
 				
-							if ($conn->connect_error) {
-								die("Error: " . $conn->connect_error);
+							if ($connection->connect_error) {
+								die("Error: " . $connection->connect_error);
 							}
 						
 							if(isset($_SESSION['filterValues1'])) {
@@ -53,7 +54,7 @@
 								$sql = "SELECT id, temperature, date, sensorName FROM measurementstoday ORDER BY date DESC LIMIT 50";
 							}
 							
-							$result = $conn->query($sql);
+							$result = $connection->query($sql);
 				
 							if ($result->num_rows > 0) {
 								while ($row = $result->fetch_assoc()) {
@@ -70,7 +71,7 @@
 
 							unset($_SESSION['filterValues1']);
 				
-							$conn->close();
+							$connection->close();
 						?>
 					</table>
 				</section>
@@ -84,10 +85,10 @@
 							<th>Sensor name</th>
 						</tr>
 						<?php
-							$conn = new mysqli("localhost", "root", "", "sstwbi");
+							$connection = new mysqli($host, $user, $password, $dbName);
 
-							if ($conn->connect_error) {
-								die("Error: " . $conn->connect_error);
+							if ($connection->connect_error) {
+								die("Error: " . $connection->connect_error);
 							}
 
 							if(isset($_SESSION['filterValues2'])) {
@@ -96,7 +97,7 @@
 								$sql = "SELECT id, humidity, date, sensorName FROM measurementstoday ORDER BY date DESC LIMIT 50";
 							}
 
-							$result = $conn->query($sql);
+							$result = $connection->query($sql);
 
 							if ($result->num_rows > 0) {
 								while ($row = $result->fetch_assoc()) {
@@ -113,12 +114,12 @@
 
 							unset($_SESSION['filterValues2']);
 
-							$conn->close();
+							$connection->close();
 						?>
     				</table>
 				</section>
 
-				<section id = "recentPreasureArticle"> 
+				<section id = "filterTheMeasurements"> 
 					<h2>Filter the measurements</h2>
 					<form  action = "filterMeasurements.php" method = "post">
 						<label for = "parameter">Filtr parameter</label>

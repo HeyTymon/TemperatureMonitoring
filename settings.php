@@ -11,15 +11,15 @@
 	<head>
 		<meta charset = "utf-8"/>
 		<title>Settings</title>
-		<!--<link rel="stylesheet" href = "style.css" type = "text/css"/> -->
+		<!--<link rel="stylesheet" href = "styleSettings.css" type = "text/css"/>-->
 	</head>
 	<body>
 		<h2>Target temperature</h2>
 			<form action = "targetTemp.php" method = "post">
 				<label for = "temp">Enter the target temperature (to two decimal places):</label>
-				<input type ="text"  name="temp">
+				<input type = "number" step = "0.01" name = "temp" value = "20.00">
 				<br>
-				<input type="submit" value="Submit target temperature">
+				<input type = "submit" value = "Submit target temperature">
 			</form>
 		
 		<h2>New User</h2>

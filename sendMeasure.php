@@ -1,8 +1,5 @@
 <?php
-    $hostname = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "sstwbi";
+    require_once "connection.php";
 
     $conn = mysqli_connect($hostname, $username, $password, $database);
 

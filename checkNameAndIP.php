@@ -1,6 +1,8 @@
 <?php
 
-require_once "connection.php";
+    require_once "connection.php";
 
-    $conn = mysqli_connect($hostname, $username, $password, $database);
+    $connection = mysqli_connect($hostname, $username, $password, $database);
+
+
 ?>

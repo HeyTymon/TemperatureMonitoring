@@ -110,6 +110,9 @@
 		<h1>... to be continued ...</h1>
 		<a href = "main.php">Main page</a>
 
+		<?php 
+			$connection->close(); 
+		?>
 	</body>
 </html>
 
