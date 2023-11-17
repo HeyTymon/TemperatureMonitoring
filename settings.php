@@ -20,7 +20,16 @@
 				<input type = "number" step = "0.01" name = "temp" value = "20.00">
 				<br>
 				<input type = "submit" value = "Submit target temperature">
-			</form>
+			</form><br>
+
+			<?php 
+
+				if(isset($_SESSION['tempUpToDate'])) {
+					echo $_SESSION['tempUpToDate'];
+				}
+				unset($_SESSION['tempUpToDate']);
+
+			?>
 		
 		<h2>New User</h2>
 			<form action = "newUser.php" method = "post">

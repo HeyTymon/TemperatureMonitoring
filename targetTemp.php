@@ -19,11 +19,9 @@
     $result = $connection->query($sqlQuerry);
     $row = $result->fetch_assoc();
 
-    //echo $row['avgTemperature'];
+    if(isset($_POST['temp']) && $_POST['temp'] > $row['avgTemperature']) {
 
-    if(isset($_POST['temp']) && $_POST['temp'] < $row['avgTemperature']) {
-
-        $url = "http://172.16.1.200/reciveTemp"; // server.on("/reciveTemp", HTTP_POST, [](AsyncWebServerRequest *request){...
+        $url = "http://172.16.1.200/reciveTemp"; 
         $data = array('temp' => $_POST['temp']);
         $options = array(
             'http' => array(
@@ -34,16 +32,24 @@
         $context  = stream_context_create($options);
         $result = file_get_contents($url, false, $context);   
 
-        $msg1 = "Text sent to ESP32: " . $_POST['temp'];
-        $msg2 = "Error sending text to ESP32";
+        // $msg1 = "Text sent to ESP32: " . $_POST['temp'];
+        // $msg2 = "Error sending text to ESP32";
 
-        echo ($result !== false) ?  $msg1 :  $msg2;
+        // echo ($result !== false) ?  $msg1 :  $msg2;
+        
+        if($result !== false) {
+            $_SESSION['tempUpToDate'] = "Target temperature was sent to controller";
+        } else {
+            $_SESSION['tempUpToDate'] = "An error occurred during temperature setting";
+        }
 
     } else {
         
-        echo "Temp is already up to date";
+        $_SESSION['tempUpToDate'] = "Target temperature is equal or higher than current temperature";
 
     }
+
+    $connection->close(); 
 	
-	echo '<br><a href = "main.php"> Main page </ar>';
+	header('Location: settings.php');
 ?>
