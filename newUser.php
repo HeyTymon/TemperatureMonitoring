@@ -14,15 +14,16 @@
 		echo "Error: ".$connection->connect_errno;
 	} else {
 		
-		$newUserName = $_POST['newUserName']; //sprawdzać czy taki user już istnieje
+		$newUserName = $_POST['newUserName']; 
 		$newPassword = $_POST['newPassword'];
 		$newPassword2 = $_POST['newPassword2'];
 		$isUserAdmin = $_POST['isUserAdmin'];  
+		$clusters = $_POST['clusters'];
 		
 		if($newPassword == $newPassword2) {
 
 			$sqlQuery1 = "SELECT * FROM `users` WHERE login = '$newUserName'";
-			$sqlQuery2 = "INSERT INTO `users` (`id`, `login`, `password`, `isAdmin`) VALUES (NULL, '$newUserName', '$newPassword', '$isUserAdmin')";
+			$sqlQuery2 = "INSERT INTO `users` (`id`, `login`, `password`, `isAdmin`, `clusters`) VALUES (NULL, '$newUserName', '$newPassword', '$isUserAdmin', '$clusters')";
 			
 			if($result = @$connection->query($sqlQuery1)) {
 				if($result->num_rows == 0) {

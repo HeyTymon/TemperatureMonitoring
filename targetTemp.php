@@ -15,13 +15,17 @@
     
     //change to avg(all sensors last measure)
     $sqlQuerry = "SELECT ROUND(AVG(temperature),2) AS avgTemperature FROM `measurementstoday` LIMIT 1";
+    $sqlQuerry2 = "SELECT * FROM `clusters` WHERE `id` = " . $_POST['clusterTemp'] . " LIMIT 1";
 
     $result = $connection->query($sqlQuerry);
     $row = $result->fetch_assoc();
 
+    $result2 = $connection->query($sqlQuerry2);
+    $row2 = $result2->fetch_assoc();
+
     if(isset($_POST['temp']) && $_POST['temp'] > $row['avgTemperature']) {
 
-        $url = "http://172.16.1.200/reciveTemp"; 
+        $url = "http://" . $row2['ip'] . "/reciveTemp"; 
         $data = array('temp' => $_POST['temp']);
         $options = array(
             'http' => array(
@@ -51,5 +55,5 @@
 
     $connection->close(); 
 	
-	header('Location: settings.php');
+	//header('Location: settings.php');
 ?>

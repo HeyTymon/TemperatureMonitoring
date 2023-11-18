@@ -14,10 +14,11 @@
 		
 		$newSensorName = $_POST['newSensorName'];
 		$newSensorIP = $_POST['newSensorIP'];
+        $clusterSensor = $_POST['clusterSensor'];
 
         $sqlQuery1 = "SELECT * FROM `sensors` WHERE ip = '$newSensorIP' OR name = '$newSensorName'";
 
-        $sqlQuery2 = "INSERT INTO `sensors` (`id`, `name`, `ip`) VALUES (NULL, '$newSensorName', '$newSensorIP')";
+        $sqlQuery2 = "INSERT INTO `sensors` (`id`, `name`, `ip`, `cluster`) VALUES (NULL, '$newSensorName', '$newSensorIP', '$clusterSensor')";
 		
 		if($result = @$connection->query($sqlQuery1)) {
             if($result->num_rows == 0) {
