@@ -27,7 +27,7 @@ body {
 
 #menuNav ul li {
     flex: 1;
-    text-align: center; /* Dodaj tę linię, aby tekst był wycentrowany */
+    text-align: center; 
 }
 
 #menuNav ul li:not(:last-child) {
@@ -41,7 +41,7 @@ body {
     padding: 5px 10px;
     border-radius: 5px;
     transition: background-color 0.3s;
-    display: block; /* Dodaj tę linię, aby linki były pełną szerokością elementu li */
+    display: block; 
 }
 
 #menuNav a:hover {

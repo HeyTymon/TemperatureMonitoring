@@ -145,6 +145,6 @@
 			
 		</main>
 		
-		<footer id = "mainFooter">Autor: Tymon Jastrzębski 259526</footer>
+		<footer id = "mainFooter">Author: Tymon Jastrzębski 259526</footer>
 	</body>
 </html>
