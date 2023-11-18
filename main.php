@@ -13,7 +13,7 @@
 	<head>
 		<meta charset = "utf-8"/>
 		<title>System monitorowania temperatury</title>
-		<link rel="stylesheet" href = "style1.css" type = "text/css"/>
+		<link rel="stylesheet" href = "styleMain.css" type = "text/css"/>
 		
 		<!-- Dołączyć html5shiv -->
 
@@ -133,15 +133,12 @@
 						<label for = "sensor">Sensor name</label>
 						<input type ="text" name = "sensor" value = "Sensor"><br><br>
 						<label for = "limit">Records numer (max 500)</label>
-						<input type = "number" name="limit" min="1" max="500" required><br><br>
+						<input type = "number" name="limit" min="1" max="500" value="10" required><br><br>
 						<input type ="submit" value = "Filter">
 					</form>
 				</section>
 			</article>
 			
-			<article id = "statsArticle">
-				
-			</article>
 		</main>
 		
 		<footer id = "mainFooter">Autor: Tymon Jastrzębski 259526</footer>

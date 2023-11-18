@@ -1,0 +1,135 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+#mainHeader {
+    background-color: #3498db;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+#menuNav {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+#menuNav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+#menuNav ul li {
+    flex: 1;
+    text-align: center; /* Dodaj tę linię, aby tekst był wycentrowany */
+}
+
+#menuNav ul li:not(:last-child) {
+    border-right: 1px solid #fff;
+    margin-right: 10px;
+}
+
+#menuNav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    display: block; /* Dodaj tę linię, aby linki były pełną szerokością elementu li */
+}
+
+#menuNav a:hover {
+    background-color: #555;
+}
+
+main {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+#measuresArticle {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#recentTempArticle,
+#recentHumidityArticle,
+#filterTheMeasurements {
+    flex: 1;
+    width: calc(33.33% - 20px);
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+#filterTheMeasurements {
+    margin-right: 0;
+    text-align: center;
+}
+
+#filterTheMeasurements h2 {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    text-align: center;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #3498db;
+    color: #fff;
+}
+
+form {
+    width: 300px;
+    margin: auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+select, input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #3498db;
+    color: #fff;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+#mainFooter {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
