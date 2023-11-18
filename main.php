@@ -14,8 +14,6 @@
 		<meta charset = "utf-8"/>
 		<title>System monitorowania temperatury</title>
 		<link rel="stylesheet" href = "styleMain.css" type = "text/css"/>
-		
-		<!-- Dołączyć html5shiv -->
 
 	</head>
 	<body>
@@ -39,6 +37,7 @@
 							<th>Temperature</th>
 							<th>Date</th>
 							<th>Sensor name</th>
+							<th>Cluster</th>
 						</tr>
 
 						<?php
@@ -51,7 +50,7 @@
 							if(isset($_SESSION['filterValues1'])) {
 								$sql = $_SESSION['filterValues1'];
 							} else {
-								$sql = "SELECT id, temperature, date, sensorName FROM measurementstoday ORDER BY date DESC LIMIT 50";
+								$sql = "SELECT id, temperature, date, sensorName, cluster FROM measurementstoday WHERE cluster = 0 ORDER BY date DESC LIMIT 50";
 							}
 							
 							$result = $connection->query($sql);
@@ -63,10 +62,11 @@
 									echo "<td>" . $row["temperature"] . "</td>";
 									echo "<td>" . $row["date"] . "</td>";
 									echo "<td>" . $row["sensorName"] . "</td>";
+									echo "<td>" . $row["cluster"] . "</td>";
 									echo "</tr>";
 								}
 							} else {
-								echo "Brak danych do wyświetlenia";
+								echo "No data to display";
 							}
 
 							unset($_SESSION['filterValues1']);
@@ -83,6 +83,7 @@
 							<th>Humidity</th>
 							<th>Date</th>
 							<th>Sensor name</th>
+							<th>Cluster</th>
 						</tr>
 						<?php
 							$connection = new mysqli($host, $user, $password, $dbName);
@@ -94,7 +95,7 @@
 							if(isset($_SESSION['filterValues2'])) {
 								$sql = $_SESSION['filterValues2'];
 							} else {
-								$sql = "SELECT id, humidity, date, sensorName FROM measurementstoday ORDER BY date DESC LIMIT 50";
+								$sql = "SELECT id, humidity, date, sensorName, cluster FROM measurementstoday WHERE cluster = 0 ORDER BY date DESC LIMIT 50";
 							}
 
 							$result = $connection->query($sql);
@@ -106,10 +107,11 @@
 									echo "<td>" . $row["humidity"] . "</td>";
 									echo "<td>" . $row["date"] . "</td>";
 									echo "<td>" . $row["sensorName"] . "</td>";
+									echo "<td>" . $row["cluster"] . "</td>";
 									echo "</tr>";
 								}
 							} else {
-								echo "Brak danych do wyświetlenia";
+								echo "No data to display";
 							}
 
 							unset($_SESSION['filterValues2']);
@@ -132,8 +134,10 @@
 						</select><br><br>
 						<label for = "sensor">Sensor name</label>
 						<input type ="text" name = "sensor" value = "Sensor"><br><br>
+						<label for = "clusterNumber">Cluster number</label>
+						<input type = "number" name="clusterNumber" min="0" max="100" placeholder="1" required><br><br>
 						<label for = "limit">Records numer (max 500)</label>
-						<input type = "number" name="limit" min="1" max="500" value="10" required><br><br>
+						<input type = "number" name="limit" min="1" max="500" placeholder="10" required><br><br>
 						<input type ="submit" value = "Filter">
 					</form>
 				</section>

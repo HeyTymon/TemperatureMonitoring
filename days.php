@@ -44,6 +44,7 @@
 <html>
 	<head>
 		<title>Other days stats</title>
+		<link rel="stylesheet" href = "styleDays.css" type = "text/css"/>
 	</head>
 	<body>
 		<label for = "maxTemp">Table 1. Max Temp</label>

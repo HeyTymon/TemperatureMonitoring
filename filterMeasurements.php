@@ -17,32 +17,33 @@
 		$parameter = $_POST['parameter'];
         $sensorName = $_POST['sensor'];
         $limit = $_POST['limit'];
+        $clusterNumber = $_POST['clusterNumber'];
 
 		switch($parameter) {
             
                 case "Date ASC": {
-                    $_SESSION['filterValues1'] = "SELECT `id`, `temperature`,`date`, `sensorName` FROM `measurementstoday` ORDER BY `date` ASC LIMIT $limit";
-                    $_SESSION['filterValues2'] = "SELECT * FROM `measurementstoday` ORDER BY `date` ASC LIMIT $limit";
+                    $_SESSION['filterValues1'] = "SELECT `id`, `temperature`, `date`, `sensorName`, `cluster` FROM `measurementstoday` WHERE `cluster` = $clusterNumber ORDER BY `date` ASC LIMIT $limit";
+                    $_SESSION['filterValues2'] = "SELECT `id`, `humidity`, `date`, `sensorName`, `cluster` FROM `measurementstoday` WHERE `cluster` = $clusterNumber ORDER BY `date` ASC LIMIT $limit";
                 } break;
 
                 case "Date DESC": {
-                    $_SESSION['filterValues1'] = "SELECT `id`, `temperature`,`date`, `sensorName` FROM `measurementstoday` ORDER BY `date` DESC LIMIT $limit";
-                    $_SESSION['filterValues2'] = "SELECT `id`, `humidity`,`date`, `sensorName` FROM `measurementstoday` ORDER BY `date` DESC LIMIT $limit";
+                    $_SESSION['filterValues1'] = "SELECT `id`, `temperature`,`date`, `sensorName`, `cluster` FROM `measurementstoday` WHERE `cluster` = $clusterNumber ORDER BY `date` DESC LIMIT $limit";
+                    $_SESSION['filterValues2'] = "SELECT `id`, `humidity`,`date`, `sensorName`, `cluster` FROM `measurementstoday` WHERE `cluster` = $clusterNumber ORDER BY `date` DESC LIMIT $limit";
                 } break;
 
                 case "Min values": {
-                    $_SESSION['filterValues1'] = "SELECT `id`, `temperature`,`date`, `sensorName` FROM `measurementstoday` ORDER BY temperature ASC LIMIT $limit";
-                    $_SESSION['filterValues2'] = "SELECT `id`, `humidity`,`date`, `sensorName` FROM `measurementstoday` ORDER BY `humidity` ASC LIMIT $limit";
+                    $_SESSION['filterValues1'] = "SELECT `id`, `temperature`,`date`, `sensorName`, `cluster` FROM `measurementstoday` WHERE `cluster` = $clusterNumber ORDER BY temperature ASC LIMIT $limit";
+                    $_SESSION['filterValues2'] = "SELECT `id`, `humidity`,`date`, `sensorName`, `cluster` FROM `measurementstoday` WHERE `cluster` = $clusterNumber ORDER BY `humidity` ASC LIMIT $limit";
                 } break;
 
                 case "Max values": {
-                    $_SESSION['filterValues1'] = "SELECT `id`, `temperature`,`date`, `sensorName` FROM `measurementstoday` ORDER BY temperature DESC LIMIT $limit";
-                    $_SESSION['filterValues2'] = "SELECT `id`, `humidity`,`date`, `sensorName` FROM `measurementstoday` ORDER BY `humidity` DESC LIMIT $limit";
+                    $_SESSION['filterValues1'] = "SELECT `id`, `temperature`,`date`, `sensorName`, `cluster` FROM `measurementstoday` WHERE `cluster` = $clusterNumber ORDER BY temperature DESC LIMIT $limit";
+                    $_SESSION['filterValues2'] = "SELECT `id`, `humidity`,`date`, `sensorName`, `cluster` FROM `measurementstoday` WHERE `cluster` = $clusterNumber ORDER BY `humidity` DESC LIMIT $limit";
                 } break;
 
                 case "Sensor name": {
-                    $_SESSION['filterValues1'] = "SELECT `id`, `temperature`,`date`, `sensorName` FROM `measurementstoday` WHERE sensorName = '$sensorName' LIMIT $limit";
-                    $_SESSION['filterValues2'] = "SELECT `id`, `humidity`,`date`, `sensorName` FROM `measurementstoday` WHERE sensorName = '$sensorName' LIMIT $limit";
+                    $_SESSION['filterValues1'] = "SELECT `id`, `temperature`,`date`, `sensorName`, `cluster` FROM `measurementstoday` WHERE sensorName = '$sensorName' AND `cluster` = $clusterNumber LIMIT $limit";
+                    $_SESSION['filterValues2'] = "SELECT `id`, `humidity`,`date`, `sensorName`, `cluster` FROM `measurementstoday` WHERE sensorName = '$sensorName' AND `cluster` = $clusterNumber LIMIT $limit";
                 } break;
 
         }
