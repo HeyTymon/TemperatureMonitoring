@@ -20,7 +20,10 @@
 					<h2>Target temperature</h2>
 						<form action = "targetTemp.php" method = "post">
 							<label for = "temp">Enter the target temperature (to two decimal places):</label>
-							<input type = "number" step = "0.01" name = "temp" value = "20.00">
+							<input type = "number" step = "0.01" name = "temp" placeholder = "20.00" required>
+							<br> 
+							<label for = "clusterTemp">Enter the target temperature (to two decimal places):</label>
+							<input type = "number"  name = "clusterTemp" min="1" max="100" placeholder = "1" required>
 							<br>
 							<input type = "submit" value = "Submit target temperature">
 						</form><br>
@@ -43,16 +46,19 @@
 								if ($_SESSION['isAdmin']) {
 									echo <<<END
 										<label for="newUserName">User name:</label>
-										<input type="text" name="newUserName" placeholder="User">
+										<input type="text" name="newUserName" placeholder="User" required>
 										<br>
 										<label for="newPassword">User password:</label>
-										<input type="password" name="newPassword" placeholder="Password">
+										<input type="password" name="newPassword" placeholder="Password" required>
 										<br>
 										<label for="newPassword2">Eneter password again:</label>
-										<input type="password" name="newPassword2" placeholder="Password">
+										<input type="password" name="newPassword2" placeholder="Password" required>
 										<br>
 										<label for="isUserAdmin">Is user an admin:</label>
-										<input type="number" name="isUserAdmin" min="0" max="1" required>
+										<input type="number" name="isUserAdmin" min="0" max="1" placeholder="0" required>
+										<br>
+										<label for="clusters">Clusters access:</label>
+										<input type="number" name="clusters" min="-1" max="100" placeholder="0" required>
 										<br>
 										<input type="submit" value="Submit new user">
 										<br>
@@ -82,6 +88,7 @@
 									echo <<<END
 										<span color = "red">You must be loged in as an admin to add new users!</span>
 										<br>
+										<br>
 										<label for="newUserName">User name:</label>
 										<input type="text" name="newUserName" placeholder="User" disabled>
 										<br>
@@ -89,10 +96,13 @@
 										<input type="password" name="newPassword" placeholder="Password" disabled>
 										<br>
 										<label for="newPassword2">Eneter password again:</label>
-										<input type="password" name="newPassword2" placeholder="Password"disabled>
+										<input type="password" name="newPassword2" placeholder="Password" disabled>
 										<br>
 										<label for="isUserAdmin">Is user an admin:</label>
-										<input type="number" name="isUserAdmin" min="0" max="1" required disabled> 
+										<input type="number" name="isUserAdmin" min="0" max="1" placeholder="0" required disabled> 
+										<br>
+										<label for="clusters">Clusters access:</label>
+										<input type="number" name="clusters" min="-1" max="100" placeholder="0" required disabled>
 										<br>
 										<input type="submit" value="Submit new user" disabled>
 									END;
@@ -113,6 +123,9 @@
 									<br>
 									<label for="newSensorIP">Sensor IP:</label>
 									<input type="text" name="newSensorIP" placeholder="10.0.0.1">
+									<br>
+									<label for="clusterSensor">Cluster:</label>
+									<input type="number" name="clusterSensor" min="1" max="100" placeholder="1" required>
 									<br>
 									<input type="submit" value="Submit new sensor">
 									<br>
@@ -135,11 +148,17 @@
 
 								} else {
 									echo <<<END
+									<span color = "red">You must be loged in as an admin to add new sensors!</span>
+									<br>
+									<br>
 									<label for="newSensorName">Sensor name:</label>
 									<input type="text" name="newSensorName" placeholder="Sensor" disabled>
 									<br>
 									<label for="newSensorIP">Sensor IP:</label>
 									<input type="text" name="newSensorIP" placeholder="10.0.0.1" disabled>
+									<br>
+									<label for="clusterSensor">Cluster:</label>
+									<input type="number" name="clusterSensor" min="1" max="100" placeholder="1" required disabled>
 									<br>
 									<input type="submit" value="Submit new sensor" disabled>
 									<br>
