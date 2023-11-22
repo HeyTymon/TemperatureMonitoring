@@ -30,9 +30,7 @@
 
 						<?php 
 
-							if(isset($_SESSION['tempUpToDate'])) {
-								echo $_SESSION['tempUpToDate'];
-							}
+							if(isset($_SESSION['tempUpToDate'])) echo $_SESSION['tempUpToDate'];
 							unset($_SESSION['tempUpToDate']);
 
 						?>
@@ -58,20 +56,18 @@
 									<br>
 									END;
 
-									if(isset($_SESSION['isCreatedSensor'])) {
-										echo "New sensor was added";
+									$sensorMessages = [
+										'isCreatedSensor' => 'New sensor was added',
+										'dataTakenSensor' => 'Name or IP already taken',
+										'isDataNotCorrectSensor' => 'Incorrect input data! Try again',
+									];
+									
+									foreach ($sensorMessages as $key => $message) {
+										if (isset($_SESSION[$key])) {
+											echo $message;
+											unset($_SESSION[$key]);
+										}
 									}
-									unset($_SESSION['isCreatedSensor']);
-
-									if(isset($_SESSION['dataTakenSensor'])) {
-										echo "Name or IP already taken";
-									}
-									unset($_SESSION['dataTakenSensor']);
-
-									if(isset($_SESSION['isDataNotCorrectSensor'])){
-										echo "Incorrect input data! Try again";
-									}
-									unset($_SESSION['isDataNotCorrectSensor']);
 
 								} else {
 									echo <<<END
@@ -121,25 +117,19 @@
 										<br>
 									END;
 									
-										if(isset($_SESSION['isPassNotCorrect'])) { 
-											echo "Passwords do not match! Try again";
+									$userCreationMessages = [
+										'isPassNotCorrect' => 'Passwords do not match! Try again',
+										'dataTaken' => 'Name already taken',
+										'isCreated' => 'New user was created',
+										'isDataNotCorrect' => 'Incorrect input data! Try again',
+									];
+									
+									foreach ($userCreationMessages as $key => $message) {
+										if (isset($_SESSION[$key])) {
+											echo $message;
+											unset($_SESSION[$key]);
 										}
-										unset($_SESSION['isPassNotCorrect']);
-
-										if(isset($_SESSION['dataTaken'])) {
-											echo "Name already taken";
-										}
-										unset($_SESSION['dataTaken']);
-										
-										if(isset($_SESSION['isCreated'])) {
-											echo "New user was created";
-										}
-										unset($_SESSION['isCreated']);
-										
-										if(isset($_SESSION['isDataNotCorrect'])){
-											echo "Incorrect input data! Try again";
-										}
-										unset($_SESSION['isDataNotCorrect']);
+									}
 
 								} else {
 									echo <<<END
@@ -185,23 +175,18 @@
 										<br>
 									END;
 									
-									if(isset($_SESSION['deletionSuccessful'])) {
-										echo "User was deleted";
-									}
-									unset($_SESSION['deletionSuccessful']);
-
-									if(isset($_SESSION['deletionFailed'])) {
-										echo "User was not deleted";
-									}
-									unset($_SESSION['deletionFailed']);
-
-									if(isset($_SESSION['userNotExists'])) {
-										echo "User does not exist";
-									}
-									unset($_SESSION['userNotExists']);
-
-									if(isset($_SESSION['userIsAdmin'])) {
-										echo "You can not delete admin";
+									$deletionMessages = [
+										'deletionSuccessful' => 'User was deleted',
+										'deletionFailed' => 'User was not deleted',
+										'userNotExists' => 'User does not exist',
+										'userIsAdmin' => 'You can not delete admin',
+									];
+									
+									foreach ($deletionMessages as $key => $message) {
+										if (isset($_SESSION[$key])) {
+											echo $message;
+											unset($_SESSION[$key]);
+										}
 									}
 									
 								} else {
@@ -220,6 +205,75 @@
 							?>
 						</form>
 				</section>	
+
+				<section id="changeUser">
+					<h2>Change user settings</h2>
+					<form action="changeUser.php" method="post">
+
+						<?php
+						if ($_SESSION['isAdmin']) {
+							echo <<<END
+								<label for="selectUser">User name:</label>
+								<input type="text" name="selectUser" placeholder="User" required>
+								<br>
+								<label for="changeUserName">New name:</label>
+								<input type="text" name="changeUserName" placeholder="User">
+								<br>
+								<label for="changeUserPassword">New password:</label>
+								<input type="text" name="changeUserPassword" placeholder="User">
+								<br>
+								<label for="changeCluster">Change cluster:</label>
+								<input type="number" name="changeCluster" min="-1" max="100" placeholder="1">
+								<br>
+								<label for="changePermission">Change permission:</label>
+								<input type="number" name="changePermission" min="0" max="1" placeholder="0">
+								<br>
+								<input type="submit" value="Submit Changes">
+								<br>
+							END;
+
+							$messages = [
+								'zeroChanges' => 'No changes were made',
+								'changesSuccessful' => 'Changes were successful',
+								'changesFailed' => 'Changes were not successful',
+								'userNotExistsChanges' => 'User does not exist',
+								'userIsAdminChanges' => 'You can not change admin',
+							];
+							
+							foreach ($messages as $key => $message) {
+								if (isset($_SESSION[$key])) {
+									echo $message;
+									unset($_SESSION[$key]);
+								}
+							}
+
+						} else {
+							echo <<<END
+								<span color="red">You must be logged in as an admin to change user details!</span>
+								<label for="selectUser">User name:</label>
+								<input type="text" name="selectUser" placeholder="User" required disabled>
+								<br>
+								<label for="changeUserName">New name:</label>
+								<input type="text" name="changeUserName" placeholder="User" disabled>
+								<br>
+								<label for="changeUserPassword">New password:</label>
+								<input type="text" name="changeUserPassword" placeholder="User" disabled>
+								<br>
+								<label for="changeCluster">Change cluster:</label>
+								<input type="number" name="changeCluster" min="-1" max="100" placeholder="1" disabled>
+								<br>
+								<label for="changePermission">Change permission:</label>
+								<input type="number" name="changePermission" min="0" max="1" placeholder="0" disabled>
+								<br>
+								<input type="submit" value="Submit Changes">
+								<br>
+							END;
+						}
+						?>
+					</form>
+				</section>
+
+				<br><br>
 				
 			</article>
 		</main>
