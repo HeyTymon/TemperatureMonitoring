@@ -16,13 +16,14 @@
 	} else {
 		
 		$login = $_POST['login'];
-		$password = $_POST['password'];
+		$password  = $_POST['password'];
+
+		$_SESSION['password'] = $_POST['password'];
 		
 		$login = htmlentities($login, ENT_QUOTES, "UTF-8");
-		$password = htmlentities($password, ENT_QUOTES, "UTF-8");
+		$_SESSION['password'] = htmlentities($password, ENT_QUOTES, "UTF-8");
 		
 		$sqlQuery = "SELECT * FROM users WHERE login = '$login' AND password = '$password'";
-		
 		
 		if($result = @$connection->query(
 		sprintf($sqlQuery,mysqli_real_escape_string($connection,$login),mysqli_real_escape_string($connection,$password)))) {

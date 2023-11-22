@@ -37,6 +37,63 @@
 
 						?>
 				</section>
+
+				<section id = "newSensorSection">
+
+					<h2>New sensor</h2>
+						<form action = "newSensor.php" method = "post">
+							<?php
+								if ($_SESSION['isAdmin']) {
+									echo <<<END
+									<label for="newSensorName">Sensor name:</label>
+									<input type="text" name="newSensorName" placeholder="Sensor">
+									<br>
+									<label for="newSensorIP">Sensor IP:</label>
+									<input type="text" name="newSensorIP" placeholder="10.0.0.1">
+									<br>
+									<label for="clusterSensor">Cluster:</label>
+									<input type="number" name="clusterSensor" min="1" max="100" placeholder="1" required>
+									<br>
+									<input type="submit" value="Submit new sensor">
+									<br>
+									END;
+
+									if(isset($_SESSION['isCreatedSensor'])) {
+										echo "New sensor was added";
+									}
+									unset($_SESSION['isCreatedSensor']);
+
+									if(isset($_SESSION['dataTakenSensor'])) {
+										echo "Name or IP already taken";
+									}
+									unset($_SESSION['dataTakenSensor']);
+
+									if(isset($_SESSION['isDataNotCorrectSensor'])){
+										echo "Incorrect input data! Try again";
+									}
+									unset($_SESSION['isDataNotCorrectSensor']);
+
+								} else {
+									echo <<<END
+									<span color = "red">You must be loged in as an admin to add new sensors!</span>
+									<br>
+									<br>
+									<label for="newSensorName">Sensor name:</label>
+									<input type="text" name="newSensorName" placeholder="Sensor" disabled>
+									<br>
+									<label for="newSensorIP">Sensor IP:</label>
+									<input type="text" name="newSensorIP" placeholder="10.0.0.1" disabled>
+									<br>
+									<label for="clusterSensor">Cluster:</label>
+									<input type="number" name="clusterSensor" min="1" max="100" placeholder="1" required disabled>
+									<br>
+									<input type="submit" value="Submit new sensor" disabled>
+									<br>
+									END;
+								}
+							?>
+						</form>
+				</section>
 				
 				<section id = "newUserSection">
 					<h2>New User</h2>
@@ -111,64 +168,59 @@
 						</form>
 				</section>
 
-				<section id = "newSensorSection">
-
-					<h2>New sensor</h2>
-						<form action = "newSensor.php" method = "post">
+				<section id = "deleteUserSection">
+					<h2>Delete user</h2>
+						<form action = "deleteUser.php" method = "post">
+							
 							<?php
 								if ($_SESSION['isAdmin']) {
 									echo <<<END
-									<label for="newSensorName">Sensor name:</label>
-									<input type="text" name="newSensorName" placeholder="Sensor">
-									<br>
-									<label for="newSensorIP">Sensor IP:</label>
-									<input type="text" name="newSensorIP" placeholder="10.0.0.1">
-									<br>
-									<label for="clusterSensor">Cluster:</label>
-									<input type="number" name="clusterSensor" min="1" max="100" placeholder="1" required>
-									<br>
-									<input type="submit" value="Submit new sensor">
-									<br>
+										<label for="deleteUserName">User name:</label>
+										<input type="text" name="deleteUserName" placeholder="User" required>
+										<br>
+										<label for="adminPassword">Admins password:</label>
+										<input type="password" name="adminPassword" placeholder="Password" required>
+										<br>
+										<input type="submit" value="Submit new user">
+										<br>
 									END;
-
-									if(isset($_SESSION['isCreatedSensor'])) {
-										echo "New sensor was added";
+									
+									if(isset($_SESSION['deletionSuccessful'])) {
+										echo "User was deleted";
 									}
-									unset($_SESSION['isCreatedSensor']);
+									unset($_SESSION['deletionSuccessful']);
 
-									if(isset($_SESSION['dataTakenSensor'])) {
-										echo "Name or IP already taken";
+									if(isset($_SESSION['deletionFailed'])) {
+										echo "User was not deleted";
 									}
-									unset($_SESSION['dataTakenSensor']);
+									unset($_SESSION['deletionFailed']);
 
-									if(isset($_SESSION['isDataNotCorrectSensor'])){
-										echo "Incorrect input data! Try again";
+									if(isset($_SESSION['userNotExists'])) {
+										echo "User does not exist";
 									}
-									unset($_SESSION['isDataNotCorrectSensor']);
+									unset($_SESSION['userNotExists']);
 
+									if(isset($_SESSION['userIsAdmin'])) {
+										echo "You can not delete admin";
+									}
+									
 								} else {
 									echo <<<END
-									<span color = "red">You must be loged in as an admin to add new sensors!</span>
-									<br>
-									<br>
-									<label for="newSensorName">Sensor name:</label>
-									<input type="text" name="newSensorName" placeholder="Sensor" disabled>
-									<br>
-									<label for="newSensorIP">Sensor IP:</label>
-									<input type="text" name="newSensorIP" placeholder="10.0.0.1" disabled>
-									<br>
-									<label for="clusterSensor">Cluster:</label>
-									<input type="number" name="clusterSensor" min="1" max="100" placeholder="1" required disabled>
-									<br>
-									<input type="submit" value="Submit new sensor" disabled>
-									<br>
+										<span color = "red">You must be loged in as an admin to add new users!</span>
+										<label for="deleteUserName">User name:</label>
+										<input type="text" name="deleteUserName" placeholder="User" required disabled>
+										<br>
+										<label for="adminPassword">Admins password:</label>
+										<input type="password" name="adminPassword" placeholder="Password" required disabled>
+										<br>
+										<input type="submit" value="Submit new user" disabled>
+										<br>
 									END;
 								}
 							?>
 						</form>
-
-					<br><br>
-				</section>		
+				</section>	
+				
 			</article>
 		</main>
 		<a href="main.php" class="back-button">Main page</a>

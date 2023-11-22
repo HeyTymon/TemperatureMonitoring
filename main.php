@@ -30,6 +30,28 @@
 		
 		<main>
 			<article id = "measuresArticle">
+
+			<section id = "filterTheMeasurements"> 
+					<h2>Filter the measurements</h2>
+					<form  action = "filterMeasurements.php" method = "post">
+						<label for = "parameter">Filtr parameter</label>
+						<select name = "parameter">
+							<option>Date ASC</option>
+							<option>Date DESC</option>
+							<option>Max values</option>
+							<option>Min value</option>
+							<option>Sensor name</option>
+						</select><br><br>
+						<label for = "sensor">Sensor name</label>
+						<input type ="text" name = "sensor" value = "Sensor"><br><br>
+						<label for = "clusterNumber">Cluster number</label>
+						<input type = "number" name="clusterNumber" min="0" max="100" placeholder="1" required><br><br>
+						<label for = "limit">Records numer (max 500)</label>
+						<input type = "number" name="limit" min="1" max="500" placeholder="10" required><br><br>
+						<input type ="submit" value = "Filter">
+					</form>
+				</section>
+
 				<section id = "recentTempArticle"> 
 					<table border="1">
 						<tr>
@@ -121,26 +143,7 @@
     				</table>
 				</section>
 
-				<section id = "filterTheMeasurements"> 
-					<h2>Filter the measurements</h2>
-					<form  action = "filterMeasurements.php" method = "post">
-						<label for = "parameter">Filtr parameter</label>
-						<select name = "parameter">
-							<option>Date ASC</option>
-							<option>Date DESC</option>
-							<option>Max values</option>
-							<option>Min value</option>
-							<option>Sensor name</option>
-						</select><br><br>
-						<label for = "sensor">Sensor name</label>
-						<input type ="text" name = "sensor" value = "Sensor"><br><br>
-						<label for = "clusterNumber">Cluster number</label>
-						<input type = "number" name="clusterNumber" min="0" max="100" placeholder="1" required><br><br>
-						<label for = "limit">Records numer (max 500)</label>
-						<input type = "number" name="limit" min="1" max="500" placeholder="10" required><br><br>
-						<input type ="submit" value = "Filter">
-					</form>
-				</section>
+
 			</article>
 			
 		</main>
