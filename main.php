@@ -20,9 +20,13 @@
 		
 		<header id = "mainHeader">
 				<h1>S. S. T. W. B. I.</h1>
-				<h2><?php echo "Welcome ".$_SESSION['login'].", today is "?>
-			<script src="time.js"></script>
-			</h2>
+				<h2>
+					<?php 
+						echo "Welcome ".$_SESSION['login'].", today is ";
+						date_default_timezone_set('Europe/Warsaw');
+						echo date('F j, Y');
+					?>
+				</h2>
 		</header>
 		<nav id = "menuNav">
 			<ul>
@@ -48,7 +52,7 @@
 							<option>Sensor name</option>
 						</select><br><br>
 						<label for = "datePicker">Date</label>
-						<input type ="date" name = "datePicker" value = "2023-11-24"><br><br>
+						<input type ="date" name = "datePicker" value = <?php echo date('Y-m-d') ?>><br><br>
 						<label for = "sensor">Sensor name</label>
 						<input type ="text" name = "sensor" placeholder = "Sensor"><br><br>
 						<label for = "clusterNumber">Cluster number</label>
