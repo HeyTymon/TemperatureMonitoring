@@ -6,6 +6,13 @@
 		exit();
 	}	
 
+    //prawie dobrze - poprawić co z warunkiem i będzie działać
+    if($_POST['clusterTemp'] == $_SESSION['clusterInfo'] || $_SESSION['clusterInfo'] == -1) {
+        $_SESSION['tempUpToDate'] = "You  have permision to this cluster";
+        header('Location: settings.php');
+		exit();
+    } 
+
     require_once "connection.php";
     $connection = new mysqli($host, $user, $password, $dbName);
 

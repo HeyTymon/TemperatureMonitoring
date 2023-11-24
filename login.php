@@ -34,6 +34,7 @@
 				$_SESSION['isAdmin'] = $row['isAdmin'];
 				$_SESSION['isLogined'] = true;
 				unset($_SESSION['loginError']);
+				$_SESSION['clusterInfo'] = $row['clusters'];
 				
 				$result->free();
 				

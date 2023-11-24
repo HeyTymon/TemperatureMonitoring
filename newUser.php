@@ -23,7 +23,7 @@
 		if($newPassword == $newPassword2) {
 
 			$sqlQuery1 = "SELECT * FROM `users` WHERE login = '$newUserName'";
-			$sqlQuery2 = "INSERT INTO `users` (`id`, `login`, `password`, `isAdmin`, `clusters`) VALUES (NULL, '$newUserName', '$newPassword', '$isUserAdmin', '$clusters')";
+			$sqlQuery2 = "INSERT INTO `users` ( `login`, `password`, `isAdmin`, `clusters`) VALUES ('$newUserName', '$newPassword', '$isUserAdmin', '$clusters')";
 			
 			if($result = @$connection->query($sqlQuery1)) {
 				if($result->num_rows == 0) {

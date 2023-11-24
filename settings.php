@@ -4,6 +4,8 @@
 		header('Location: index.php');
 		exit();
 	}	
+
+	require_once "connection.php";
 ?>
 
 <!DOCTYPE html>
@@ -26,14 +28,14 @@
 							<input type = "number"  name = "clusterTemp" min="1" max="100" placeholder = "1" required>
 							<br>
 							<input type = "submit" value = "Submit target temperature">
-						</form><br>
-
+					
 						<?php 
 
 							if(isset($_SESSION['tempUpToDate'])) echo $_SESSION['tempUpToDate'];
 							unset($_SESSION['tempUpToDate']);
 
 						?>
+						</form><br>
 				</section>
 
 				<section id = "newSensorSection">
@@ -251,11 +253,98 @@
 						?>
 					</form>
 				</section>
+			</article>
 
-				<br><br>
-				
+			<article id = "tablesArticle">
+				<section id = "usersTabel">
+					<?php
+						if($_SESSION['isAdmin']) {
+							echo <<<END
+							<table border="1">
+								<tr>
+									<th>User</th>
+									<th>Password</th>
+									<th>Admin</th>
+									<th>Cluster</th>
+								</tr>
+							END;
+					
+									$connection = new mysqli($host, $user, $password, $dbName);
+					
+									if ($connection->connect_error) {
+										die("Error: " . $connection->connect_error);
+									}
+								
+									$sqlQuery = "SELECT * FROM `users`"; 
+									
+									$result = $connection->query($sqlQuery);
+						
+									if ($result->num_rows > 0) {
+										while ($row = $result->fetch_assoc()) {
+											echo "<tr>";
+											echo "<td>" . $row["login"] . "</td>";
+											echo "<td>" . $row["password"] . "</td>";
+											echo "<td>" . $row["isAdmin"] . "</td>";
+											echo "<td>" . $row["clusters"] . "</td>";
+											echo "</tr>";
+										}
+									} else {
+										echo "No data to display";
+									}
+						
+									$connection->close();
+								
+							echo "</table>";
+						}
+					?>
+				</seciton>
+
+				<section id = "sensorsTabel">
+					<?php 
+						if($_SESSION['isAdmin']) {
+							echo <<<END
+							<table border="1">
+								<tr>
+									<th>ID</th>
+									<th>Sensor</th>
+									<th>IP</th>
+									<th>Cluster</th>
+								</tr>
+							END;
+							
+									$connection = new mysqli($host, $user, $password, $dbName);
+						
+									if ($connection->connect_error) {
+										die("Error: " . $connection->connect_error);
+									}
+								
+									$sqlQuery = "SELECT * FROM `sensors`"; 
+									
+									$result = $connection->query($sqlQuery);
+						
+									if ($result->num_rows > 0) {
+										while ($row = $result->fetch_assoc()) {
+											echo "<tr>";
+											echo "<td>" . $row["id"] . "</td>";
+											echo "<td>" . $row["name"] . "</td>";
+											echo "<td>" . $row["ip"] . "</td>";
+											echo "<td>" . $row["cluster"] . "</td>";
+											echo "</tr>";
+										}
+									} else {
+										echo "No data to display";
+									}
+						
+									$connection->close();
+								
+							echo "</table>";
+						}
+					?>
+				</seciton>
 			</article>
 		</main>
+
+		<br><br>
 		<a href="main.php" class="back-button">Main page</a>
 	</body>
 </html>
