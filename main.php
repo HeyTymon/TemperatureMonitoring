@@ -43,12 +43,12 @@
 			<section id = "filterTheMeasurements"> 
 					<h2>Filter the measurements</h2>
 					<form  action = "filterMeasurements.php" method = "post">
-						<label for = "parameter">Filtr parameter</label>
+						<label for = "parameter">Filter parameters</label>
 						<select name = "parameter">
 							<option>Date ASC</option>
 							<option>Date DESC</option>
 							<option>Max values</option>
-							<option>Min value</option>
+							<option>Min values</option>
 							<option>Sensor name</option>
 						</select><br><br>
 						<label for = "datePicker">Date</label>

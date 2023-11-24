@@ -8,16 +8,6 @@
 	require_once "connection.php";
 	$connection = mysqli_connect($host, $user, $password, $dbName);
 
-	$sqlQuery1 = "SELECT `id`, MAX(temperature) AS maxTemperature, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
-	$sqlQuery2 = "SELECT `id`, MIN(temperature) AS minTemperature, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
-	$sqlQuery3 = "SELECT `id`, ROUND(AVG(temperature),2) AS avgTemperature, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
-	$sqlQuery4 = "SELECT `id`, ROUND(MAX(temperature) - MIN(temperature),2) AS amplitude, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
-	
-	$sqlQuery21 = "SELECT `id`, MAX(humidity) AS maxHumidity, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
-	$sqlQuery22 = "SELECT `id`, MIN(humidity) AS minHumidity, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
-	$sqlQuery23 = "SELECT `id`, ROUND(AVG(humidity),2) AS avgHumidity, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
-	$sqlQuery24 = "SELECT `id`, ROUND(MAX(humidity) - MIN(humidity),2) AS amplitude, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
-
 	function echoTable($sqlQuery, $columnName, $connection) {
 
 		if($connection->connect_errno != 0) {
@@ -31,6 +21,7 @@
 						echo "<td>" . $row["$columnName"] . "</td>";
 						echo "<td>" . $row["date"] . "</td>";
 						echo "<td>" . $row["sensorName"] . "</td>";
+                        echo "<td>" . $row["cluster"] . "</td>";
 						echo "</tr>";
 							}
 						} else {
@@ -42,10 +33,25 @@
 					}
 	}
 
+    if(isset($_SESSION['filterDaysValues1']) && isset($_SESSION['filterDaysValues2'])) {
+        $sqlQuery1 = $_SESSION['filterDaysValues1'];
+        $sqlQuery2 = $_SESSION['filterDaysValues2'];
+        $columnName1 = $_SESSION['columnName1'];
+        $columnName2 = $_SESSION['columnName2'];
+
+        unset($_SESSION['filterDaysValues1']);
+        unset($_SESSION['filterDaysValues2']);
+        unset($_SESSION['columnName1']);
+        unset($_SESSION['columnName2']);
+    } else {
+        $sqlQuery1 = "SELECT `id`, MAX(temperature) AS maxTemperature, CAST(`date` AS DATE) AS date, `sensorName`, `cluster` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
+        $sqlQuery2 = "SELECT `id`, MAX(humidity) AS maxHumidity, CAST(`date` AS DATE) AS date, `sensorName`, `cluster` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
+        $columnName1 = "maxTemperature";
+        $columnName2 = "maxHumidity";
+    }
+
 ?>	
 
-
-<!-- Zmienić tak żeby też były tylko dwie tabele i filtry tego co ma się wyświetlać a w main żeby wyświetlały się tylko pomiary z danego dnia -->
 <!DOCTYPE html>
 <html>
 	<head>
@@ -53,44 +59,64 @@
 		<link rel="stylesheet" href = "styleDays.css" type = "text/css"/>
 	</head>
 	<body>
-		<label for = "maxTemp">Table 1. Max Temp</label>
-		<table border="1" name = "maxTemp">
+		<main>
+			<article id = "mainArticle">
 
-				<tr>
-					<th>ID</th>
-					<th>Temperature</th>
-					<th>Date</th>
-					<th>Sensor name</th>
-				</tr>
+                <section id = "filterTheMeasurements"> 
+                    <h1>Filter the measurements</h1>
+					<form  action = "filterDays.php" method = "post">
+						<select name = "parameter">
+							<option>Maximum values</option>
+							<option>Minmum values</option>
+                            <option>Average values</option>
+                            <option>Amplitude</option>
+						</select><br>
+                        <input type ="submit" value = "Filter">
+                    </form>
+				</section>
 
-				<?php
-					echoTable($sqlQuery1,"maxTemperature",$connection);
+				<section id = "tempSection">
+					<table border="1" name = "tabel1">
+
+							<tr>
+								<th>ID</th>
+								<th>Temperature</th>
+								<th>Date</th>
+								<th>Sensor name</th>
+                                <th>Cluster</th>
+							</tr>
+
+							<?php
+								echoTable($sqlQuery1,$columnName1,$connection);
+							?>
+
+					</table><br><br>
+				</section>
+
+				<section id = "humiditySection">
+					<table border="1" name = "tabel2">
+							<tr>
+								<th>ID</th>
+								<th>Temperature</th>
+								<th>Date</th>
+								<th>Sensor name</th>
+                                <th>Cluster</th>
+							</tr>
+
+							<?php
+								echoTable($sqlQuery2,$columnName2,$connection);
+							?>
+
+					</table><br><br>
+				</section>
+
+				<a href = "main.php">Main page</a>
+
+				<?php 
+					$connection->close(); 
 				?>
-
-		</table><br><br>
-
-		<label for = "avgTemp">Table 2. Min Temp</label>
-		<table border="1" name = "avgTemp">
-				<tr>
-					<th>ID</th>
-					<th>Temperature</th>
-					<th>Date</th>
-					<th>Sensor name</th>
-				</tr>
-
-				<?php
-					echoTable($sqlQuery2,"minTemperature",$connection);
-				?>
-
-		</table><br><br>
-
-
-		<h1>... to be continued ...</h1>
-		<a href = "main.php">Main page</a>
-
-		<?php 
-			$connection->close(); 
-		?>
+			</article>
+		</main>
 	</body>
 </html>
 
