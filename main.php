@@ -18,7 +18,12 @@
 	</head>
 	<body>
 		
-		<header id = "mainHeader"><h1>S. S. T. W. B. I.</h1><h2><?php echo "Welcome ".$_SESSION['login'] ?></h2></header>
+		<header id = "mainHeader">
+				<h1>S. S. T. W. B. I.</h1>
+				<h2><?php echo "Welcome ".$_SESSION['login'].", today is "?>
+			<script src="time.js"></script>
+			</h2>
+		</header>
 		<nav id = "menuNav">
 			<ul>
 				<li><a href="index.php">Clear filters</a></li>
@@ -42,8 +47,10 @@
 							<option>Min value</option>
 							<option>Sensor name</option>
 						</select><br><br>
+						<label for = "datePicker">Date</label>
+						<input type ="date" name = "datePicker" value = "2023-11-24"><br><br>
 						<label for = "sensor">Sensor name</label>
-						<input type ="text" name = "sensor" value = "Sensor"><br><br>
+						<input type ="text" name = "sensor" placeholder = "Sensor"><br><br>
 						<label for = "clusterNumber">Cluster number</label>
 						<input type = "number" name="clusterNumber" min="0" max="100" placeholder="1" required><br><br>
 						<label for = "limit">Records numer (max 500)</label>
