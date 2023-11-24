@@ -84,35 +84,6 @@
 
 		</table><br><br>
 
-		<label for = "minTemp">Table 3. Avg Temp</label>
-		<table border="1" name = "minTemp">
-				<tr>
-					<th>ID</th>
-					<th>Temperature</th>
-					<th>Date</th>
-					<th>Sensor name</th>
-				</tr>
-
-				<?php
-					echoTable($sqlQuery3,"avgTemperature",$connection);
-				?>
-
-		</table><br><br>
-
-		<label for = "amplitudeTemp">Table 4. Amplitude Temp</label>
-		<table border="1" name = "amplitudeTemp">
-				<tr>
-					<th>ID</th>
-					<th>Temperature</th>
-					<th>Date</th>
-					<th>Sensor name</th>
-				</tr>
-
-				<?php
-					echoTable($sqlQuery4,"amplitude",$connection);
-				?>
-
-		</table><br><br>
 
 		<h1>... to be continued ...</h1>
 		<a href = "main.php">Main page</a>

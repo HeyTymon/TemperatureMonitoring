@@ -16,6 +16,9 @@ main {
 section {
     margin-bottom: 30px;
     text-align: center;
+    width: 48%; /* Ustawienie szerokości sekcji na 48% (50% z odstępem) */
+    display: inline-block; /* Pozwala na układanie w rzędzie */
+    vertical-align: top; /* Ustawia wierzchołek sekcji na górze, aby się równać */
 }
 
 h2 {
@@ -54,7 +57,7 @@ input[type="submit"]:hover {
     background-color: #2980b9;
 }
 
-a {
+a, .back-button {
     display: block;
     margin-top: 20px;
     text-align: center;
@@ -62,18 +65,32 @@ a {
     color: #3498db;
 }
 
-a:hover {
+a:hover, .back-button:hover {
     text-decoration: underline;
 }
 
-.back-button {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    text-decoration: none;
-    color: #3498db;
+#tablesArticle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
-.back-button:hover {
-    text-decoration: underline;
+table {
+    width: 48%; /* Ustawienie szerokości tabeli na 48% (50% z odstępem) */
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid #3498db;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #3498db;
+    color: #fff;
 }

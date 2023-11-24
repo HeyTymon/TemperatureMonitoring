@@ -256,7 +256,7 @@
 			</article>
 
 			<article id = "tablesArticle">
-				<section id = "usersTabel">
+				<section id = "usersTable">
 					<?php
 						if($_SESSION['isAdmin']) {
 							echo <<<END
@@ -297,9 +297,9 @@
 							echo "</table>";
 						}
 					?>
-				</seciton>
+				</section>
 
-				<section id = "sensorsTabel">
+				<section id = "sensorsTable">
 					<?php 
 						if($_SESSION['isAdmin']) {
 							echo <<<END
@@ -340,7 +340,7 @@
 							echo "</table>";
 						}
 					?>
-				</seciton>
+				</section>
 			</article>
 		</main>
 
