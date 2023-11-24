@@ -5,6 +5,12 @@
         exit();
     }   
 
+    if($_POST['adminPassword'] !== $_SESSION['password']) {
+        $_SESSION['deleteUserSession'] = "Wrong admin password!";
+        header('Location: settings.php');
+        exit();
+    }
+
     require_once "connection.php";
 
     $connection = new mysqli($host, $user, $password, $dbName);
@@ -20,7 +26,7 @@
         $result2 = $connection->query($sqlQuerry2);
 
         if($result1->num_rows == 0) {
-            $_SESSION['userNotExists'] = 1; 
+            $_SESSION['deleteUserSession'] = "User does not exist";
             header('Location: settings.php');
         } else if($result2->num_rows == 1) {
 
@@ -35,15 +41,15 @@
             $stmt->close();
         
             if ($affectedRows == 1) {
-                $_SESSION['deletionSuccessful'] = 1; 
+                $_SESSION['deleteUserSession'] = "User was deleted";
                 header('Location: settings.php');
             } else {
-                $_SESSION['deletionFailed'] = 1; 
+                $_SESSION['deleteUserSession'] = "User was not deleted";
                 header('Location: settings.php');
             }
 
         } else {
-            $_SESSION['userIsAdmin'] = 1;
+            $_SESSION['deleteUserSession'] = "You can not delete admin";
             header('Location: settings.php');
         }
     }

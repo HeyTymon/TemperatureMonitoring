@@ -28,14 +28,14 @@
 			if($result = @$connection->query($sqlQuery1)) {
 				if($result->num_rows == 0) {
 					if(@$connection->query($sqlQuery2)) {
-						$_SESSION['isCreated'] = true;
+						$_SESSION['newUserSession'] = "New user was created";
 						header('Location: settings.php');
 					} else {
-						$_SESSION['isDataNotCorrect'] = true; 
+						$_SESSION['newUserSession'] = "Incorrect input data! Try again";
 						header('Location: settings.php');
 					}
 				} else {
-					$_SESSION['dataTaken'] = true;
+					$_SESSION['newUserSession'] = "Name already taken";
                 	header('Location: settings.php');
 				}
 			} else {
@@ -43,7 +43,7 @@
 			}
 			
 		} else {
-			$_SESSION['isPassNotCorrect'] = true;
+			$_SESSION['newUserSession'] = "Passwords do not match! Try again";
 			header('Location: settings.php');
 		}	
 	}

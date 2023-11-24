@@ -22,7 +22,7 @@
 							<label for = "temp">Enter the target temperature (to two decimal places):</label>
 							<input type = "number" step = "0.01" name = "temp" placeholder = "20.00" required>
 							<br> 
-							<label for = "clusterTemp">Enter the target temperature (to two decimal places):</label>
+							<label for = "clusterTemp">Enter cluster number:</label>
 							<input type = "number"  name = "clusterTemp" min="1" max="100" placeholder = "1" required>
 							<br>
 							<input type = "submit" value = "Submit target temperature">
@@ -116,19 +116,10 @@
 										<input type="submit" value="Submit new user">
 										<br>
 									END;
-									
-									$userCreationMessages = [
-										'isPassNotCorrect' => 'Passwords do not match! Try again',
-										'dataTaken' => 'Name already taken',
-										'isCreated' => 'New user was created',
-										'isDataNotCorrect' => 'Incorrect input data! Try again',
-									];
-									
-									foreach ($userCreationMessages as $key => $message) {
-										if (isset($_SESSION[$key])) {
-											echo $message;
-											unset($_SESSION[$key]);
-										}
+
+									if(isset($_SESSION['newUserSession'])){
+										echo  $_SESSION['newUserSession'];
+										unset($_SESSION['newUserSession']);
 									}
 
 								} else {
@@ -171,22 +162,13 @@
 										<label for="adminPassword">Admins password:</label>
 										<input type="password" name="adminPassword" placeholder="Password" required>
 										<br>
-										<input type="submit" value="Submit new user">
+										<input type="submit" value="Delete user">
 										<br>
 									END;
-									
-									$deletionMessages = [
-										'deletionSuccessful' => 'User was deleted',
-										'deletionFailed' => 'User was not deleted',
-										'userNotExists' => 'User does not exist',
-										'userIsAdmin' => 'You can not delete admin',
-									];
-									
-									foreach ($deletionMessages as $key => $message) {
-										if (isset($_SESSION[$key])) {
-											echo $message;
-											unset($_SESSION[$key]);
-										}
+
+									if(isset($_SESSION['deleteUserSession'])){
+										echo  $_SESSION['deleteUserSession'];
+										unset($_SESSION['deleteUserSession']);
 									}
 									
 								} else {
@@ -198,7 +180,7 @@
 										<label for="adminPassword">Admins password:</label>
 										<input type="password" name="adminPassword" placeholder="Password" required disabled>
 										<br>
-										<input type="submit" value="Submit new user" disabled>
+										<input type="submit" value="Delete user" disabled>
 										<br>
 									END;
 								}
@@ -220,7 +202,7 @@
 								<input type="text" name="changeUserName" placeholder="User">
 								<br>
 								<label for="changeUserPassword">New password:</label>
-								<input type="text" name="changeUserPassword" placeholder="User">
+								<input type="password" name="changeUserPassword" placeholder="Password">
 								<br>
 								<label for="changeCluster">Change cluster:</label>
 								<input type="number" name="changeCluster" min="-1" max="100" placeholder="1">
@@ -228,24 +210,18 @@
 								<label for="changePermission">Change permission:</label>
 								<input type="number" name="changePermission" min="0" max="1" placeholder="0">
 								<br>
+								<label for="adminPassword">Admins password:</label>
+								<input type="password" name="adminPassword" placeholder="Password" required>
+								<br>
 								<input type="submit" value="Submit Changes">
 								<br>
 							END;
 
-							$messages = [
-								'zeroChanges' => 'No changes were made',
-								'changesSuccessful' => 'Changes were successful',
-								'changesFailed' => 'Changes were not successful',
-								'userNotExistsChanges' => 'User does not exist',
-								'userIsAdminChanges' => 'You can not change admin',
-							];
-							
-							foreach ($messages as $key => $message) {
-								if (isset($_SESSION[$key])) {
-									echo $message;
-									unset($_SESSION[$key]);
-								}
+							if(isset($_SESSION['changeUserSession'])){
+								echo  $_SESSION['changeUserSession'];
+								unset($_SESSION['changeUserSession']);
 							}
+
 
 						} else {
 							echo <<<END
@@ -257,10 +233,13 @@
 								<input type="text" name="changeUserName" placeholder="User" disabled>
 								<br>
 								<label for="changeUserPassword">New password:</label>
-								<input type="text" name="changeUserPassword" placeholder="User" disabled>
+								<input type="password" name="changeUserPassword" placeholder="Password" disabled>
 								<br>
 								<label for="changeCluster">Change cluster:</label>
 								<input type="number" name="changeCluster" min="-1" max="100" placeholder="1" disabled>
+								<br>
+								<label for="adminPassword">Admins password:</label>
+								<input type="password" name="adminPassword" placeholder="Password" disabled>
 								<br>
 								<label for="changePermission">Change permission:</label>
 								<input type="number" name="changePermission" min="0" max="1" placeholder="0" disabled>

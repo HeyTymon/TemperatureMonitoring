@@ -6,6 +6,11 @@
 		exit();
 	}	
 	
+    if($_POST['adminPassword'] !== $_SESSION['password']) {
+        $_SESSION['changeUserSession'] = "Wrong admin password!";
+        header('Location: settings.php');
+        exit();
+    }
 
     require_once "connection.php";
 
@@ -16,7 +21,7 @@
     }
 
     if($_POST['changeUserName'] == NULL && $_POST['changeUserPassword'] == NULL && $_POST['changeCluster'] == NULL && $_POST['changePermission'] == NULL) {
-        $_SESSION['zeroChanges'] = 1;
+        $_SESSION['changeUserSession'] = "No changes were made";
         header('Location: settings.php');
         $connection->close();
         exit();
@@ -29,7 +34,7 @@
         $row = $result1->fetch_assoc();
 
         if($row['isAdmin'] == 1) {
-            $_SESSION['userIsAdminChanges'] = 1;
+            $_SESSION['changeUserSession'] = "You can not change admin!";
             header('Location: settings.php');
             $connection->close();
             exit();
@@ -45,16 +50,16 @@
         $stmt = $connection->prepare($sqlQuery);
         $stmt->bind_param("sssis", $changeUserNameX, $changeUserPasswordX, $changePermissionX, $changeClusterX, $_POST['selectUser']);
         if($stmt->execute()) {
-            $_SESSION['changesSuccessful'] = 1;
+            $_SESSION['changeUserSession'] = "Changes were successful";
             header('Location: settings.php');
         } else {
-            $_SESSION['changesFailed'] = 1;
+            $_SESSION['changeUserSession'] = "Changes were not successful";
             header('Location: settings.php');
         }
         $stmt->close();
 
     } else {
-        $_SESSION['userNotExistsChanges'] = 1;
+        $_SESSION['changeUserSession'] = "User does not exist";
         header('Location: settings.php');
     }
 

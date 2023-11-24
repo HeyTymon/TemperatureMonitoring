@@ -12,7 +12,11 @@
 	$sqlQuery2 = "SELECT `id`, MIN(temperature) AS minTemperature, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
 	$sqlQuery3 = "SELECT `id`, ROUND(AVG(temperature),2) AS avgTemperature, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
 	$sqlQuery4 = "SELECT `id`, ROUND(MAX(temperature) - MIN(temperature),2) AS amplitude, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
-	$sqlQuery5 = "SELECT `id`, MAX(humidity) AS maxHumidity, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
+	
+	$sqlQuery21 = "SELECT `id`, MAX(humidity) AS maxHumidity, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
+	$sqlQuery22 = "SELECT `id`, MIN(humidity) AS minHumidity, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
+	$sqlQuery23 = "SELECT `id`, ROUND(AVG(humidity),2) AS avgHumidity, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
+	$sqlQuery24 = "SELECT `id`, ROUND(MAX(humidity) - MIN(humidity),2) AS amplitude, CAST(`date` AS DATE) AS date, `sensorName` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
 
 	function echoTable($sqlQuery, $columnName, $connection) {
 
@@ -40,6 +44,8 @@
 
 ?>	
 
+
+<!-- Zmienić tak żeby też były tylko dwie tabele i filtry tego co ma się wyświetlać a w main żeby wyświetlały się tylko pomiary z danego dnia -->
 <!DOCTYPE html>
 <html>
 	<head>
