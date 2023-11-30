@@ -6,9 +6,8 @@
 		exit();
 	}	
 
-    //prawie dobrze - poprawić co z warunkiem i będzie działać
-    if($_POST['clusterTemp'] == $_SESSION['clusterInfo'] || $_SESSION['clusterInfo'] == -1) {
-        $_SESSION['tempUpToDate'] = "You  have permision to this cluster";
+    if($_POST['clusterTemp'] !== $_SESSION['clusterInfo'] && $_SESSION['clusterInfo'] !== -1) {
+        $_SESSION['tempUpToDate'] = "You dont have permision to access this cluster";
         header('Location: settings.php');
 		exit();
     } 
@@ -21,8 +20,9 @@
     } 
     
     //change to avg(all sensors last measure)
-    $sqlQuerry = "SELECT ROUND(AVG(temperature),2) AS avgTemperature FROM `measurementstoday` LIMIT 1";
-    $sqlQuerry2 = "SELECT * FROM `clusters` WHERE `id` = " . $_POST['clusterTemp'] . " LIMIT 1";
+    $sqlQuerry = "SELECT ROUND(AVG(temperature),2) AS avgTemperature FROM `measurementstoday` LIMIT 1"; //set
+
+    $sqlQuerry2 = "SELECT * FROM `clusters` WHERE `id` = " . $_POST['clusterTemp'] . " LIMIT 1"; //both
 
     $result = $connection->query($sqlQuerry);
     $row = $result->fetch_assoc();
@@ -30,9 +30,15 @@
     $result2 = $connection->query($sqlQuerry2);
     $row2 = $result2->fetch_assoc();
 
-    if(isset($_POST['temp']) && $_POST['temp'] > $row['avgTemperature']) {
+    if(isset($_POST['set'])) {
+        
+    } else if(isset($_POST['reset'])) {
 
-        $url = "http://" . $row2['ip'] . "/reciveTemp"; 
+    }
+
+    if(isset($_POST['temp']) && $_POST['temp'] > $row['avgTemperature']) { //set
+
+        $url = "http://" . $row2['ip'] . "/reciveTemp"; //function
         $data = array('temp' => $_POST['temp']);
         $options = array(
             'http' => array(
@@ -42,25 +48,21 @@
 
         $context  = stream_context_create($options);
         $result = file_get_contents($url, false, $context);   
-
-        // $msg1 = "Text sent to ESP32: " . $_POST['temp'];
-        // $msg2 = "Error sending text to ESP32";
-
-        // echo ($result !== false) ?  $msg1 :  $msg2;
         
         if($result !== false) {
             $_SESSION['tempUpToDate'] = "Target temperature was sent to controller";
+            header('Location: settings.php');
         } else {
             $_SESSION['tempUpToDate'] = "An error occurred during temperature setting";
+            header('Location: settings.php');
         }
 
     } else {
         
         $_SESSION['tempUpToDate'] = "Target temperature is equal or higher than current temperature";
-
+        header('Location: settings.php');
     }
 
     $connection->close(); 
 	
-	//header('Location: settings.php');
 ?>

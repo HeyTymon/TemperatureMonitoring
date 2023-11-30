@@ -27,7 +27,8 @@
 							<label for = "clusterTemp">Enter cluster number:</label>
 							<input type = "number"  name = "clusterTemp" min="1" max="100" placeholder = "1" required>
 							<br>
-							<input type = "submit" value = "Submit target temperature">
+							<input type = "submit" value = "Submit target temperature" name = "set">
+							<input type = "submit" value = "Reset servo position" name = "reset">
 					
 						<?php 
 
