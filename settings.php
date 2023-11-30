@@ -38,6 +38,45 @@
 						</form><br>
 				</section>
 
+				<section id = "newClusterSection">
+					<h2>New cluster</h2>
+						<form action = "newCluster.php" method = "post">
+							
+							<?php
+								if ($_SESSION['isAdmin']) {
+									echo <<<END
+										<label for="newClusterId">Cluster id:</label>
+										<input type="number" name="newClusterId" min="1" max="100" placeholder="1" required>
+										<br>
+										<label for="newClusterIp">Cluster ip:</label>
+										<input type="text" name="newClusterIp" placeholder="10.0.0.1" required>
+										<br>
+										<input type="submit" value="Submit new cluster">
+										<br>
+									END;
+
+									if(isset($_SESSION['newClusterSession'])){
+										echo  $_SESSION['newClusterSession'];
+										unset($_SESSION['newClusterSession']);
+									}
+									
+								} else {
+									echo <<<END
+										<span color = "red">You must be loged in as an admin to add new users!</span>
+										<label for="newClusterId">Cluster id:</label>
+										<input type="number" name="newClusterId" min="1" max="100" placeholder="1" required disabled>
+										<br>
+										<label for="newClusterIp">Cluster ip:</label>
+										<input type="text" name="newClusterIp" placeholder="10.0.0.1" required disabled >
+										<br>
+										<input type="submit" value="Submit new cluster" disabled >
+										<br>
+									END;
+								}
+							?>
+						</form>
+				</section>	
+
 				<section id = "newSensorSection">
 
 					<h2>New sensor</h2>
@@ -58,17 +97,9 @@
 									<br>
 									END;
 
-									$sensorMessages = [
-										'isCreatedSensor' => 'New sensor was added',
-										'dataTakenSensor' => 'Name or IP already taken',
-										'isDataNotCorrectSensor' => 'Incorrect input data! Try again',
-									];
-									
-									foreach ($sensorMessages as $key => $message) {
-										if (isset($_SESSION[$key])) {
-											echo $message;
-											unset($_SESSION[$key]);
-										}
+									if(isset($_SESSION['newSensorSession'])){
+										echo  $_SESSION['newSensorSession'];
+										unset($_SESSION['newSensorSession']);
 									}
 
 								} else {
@@ -329,6 +360,45 @@
 											echo "<td>" . $row["name"] . "</td>";
 											echo "<td>" . $row["ip"] . "</td>";
 											echo "<td>" . $row["cluster"] . "</td>";
+											echo "</tr>";
+										}
+									} else {
+										echo "No data to display";
+									}
+						
+									$connection->close();
+								
+							echo "</table>";
+						}
+					?>
+				</section>
+
+				<section id = "clusterTable">
+					<?php 
+						if($_SESSION['isAdmin']) {
+							echo <<<END
+							<table border="1">
+								<tr>
+									<th>Cluster</th>
+									<th>IP</th>
+								</tr>
+							END;
+							
+									$connection = new mysqli($host, $user, $password, $dbName);
+						
+									if ($connection->connect_error) {
+										die("Error: " . $connection->connect_error);
+									}
+								
+									$sqlQuery = "SELECT * FROM `clusters`"; 
+									
+									$result = $connection->query($sqlQuery);
+						
+									if ($result->num_rows > 0) {
+										while ($row = $result->fetch_assoc()) {
+											echo "<tr>";
+											echo "<td>" . $row["id"] . "</td>";
+											echo "<td>" . $row["ip"] . "</td>";
 											echo "</tr>";
 										}
 									} else {

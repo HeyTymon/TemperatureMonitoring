@@ -12,25 +12,24 @@
 		echo "Error: ".$connection->connect_errno;
 	} else {
 		
-		$newSensorName = $_POST['newSensorName'];
-		$newSensorIP = $_POST['newSensorIP'];
-        $clusterSensor = $_POST['clusterSensor'];
+		$newClusterId = $_POST['newClusterId'];
+		$newClusterIp = $_POST['newClusterIp'];
 
-        $sqlQuery1 = "SELECT * FROM `sensors` WHERE ip = '$newSensorIP' OR name = '$newSensorName'";
+        $sqlQuery1 = "SELECT * FROM `clusters` WHERE `id` = '$newClusterId' OR `ip` = '$newClusterIp'";
 
-        $sqlQuery2 = "INSERT INTO `sensors` (`id`, `name`, `ip`, `cluster`) VALUES (NULL, '$newSensorName', '$newSensorIP', '$clusterSensor')";
+        $sqlQuery2 = "INSERT INTO `clusters` (`id`,`ip`) VALUES ('$newClusterId', '$newClusterIp')";
 		
 		if($result = @$connection->query($sqlQuery1)) {
             if($result->num_rows == 0) {
                 if(@$connection->query($sqlQuery2)) {
-                    $_SESSION['newSensorSession'] = "New sensor was added";
+                    $_SESSION['newClusterSession'] = "New cluster was added";
                     header('Location: settings.php');
                 } else {
-                    $_SESSION['newSensorSession'] = "Incorrect input data! Try again";
+                    $_SESSION['newClusterSession'] = "Incorrect input data! Try again";
                     header('Location: settings.php');
                 }
             } else {
-                $_SESSION['newSensorSession'] = "Name or IP already taken";
+                $_SESSION['newClusterSession'] = "ID or IP already taken";
                 header('Location: settings.php');
             }
 	    } else {
