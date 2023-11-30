@@ -16,9 +16,9 @@ main {
 section {
     margin-bottom: 30px;
     text-align: center;
-    width: 48%; /* Ustawienie szerokości sekcji na 48% (50% z odstępem) */
-    display: inline-block; /* Pozwala na układanie w rzędzie */
-    vertical-align: top; /* Ustawia wierzchołek sekcji na górze, aby się równać */
+    width: 48%; 
+    display: inline-block; 
+    vertical-align: top;
 }
 
 h2 {
@@ -76,7 +76,7 @@ a:hover, .back-button:hover {
 }
 
 table {
-    width: 48%; /* Ustawienie szerokości tabeli na 48% (50% z odstępem) */
+    width: 48%; 
     margin-bottom: 20px;
 }
 
@@ -93,4 +93,21 @@ th, td {
 th {
     background-color: #3498db;
     color: #fff;
+}
+
+/* Now add style for the main button */
+.main-button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.main-button:hover {
+    background-color: #2980b9;
 }

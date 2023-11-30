@@ -97,7 +97,7 @@
 					<table border="1" name = "tabel2">
 							<tr>
 								<th>ID</th>
-								<th>Temperature</th>
+								<th>Humidity</th>
 								<th>Date</th>
 								<th>Sensor name</th>
                                 <th>Cluster</th>
@@ -110,7 +110,7 @@
 					</table><br><br>
 				</section>
 
-				<a href = "main.php">Main page</a>
+				<button onclick="window.location.href='main.php'">Main page</button>
 
 				<?php 
 					$connection->close(); 

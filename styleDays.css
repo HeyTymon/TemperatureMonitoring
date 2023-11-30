@@ -79,3 +79,19 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    margin: auto; 
+}
+
+button:hover {
+    background-color: #2980b9;
+}

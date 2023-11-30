@@ -345,6 +345,6 @@
 		</main>
 
 		<br><br>
-		<a href="main.php" class="back-button">Main page</a>
+		<button class="main-button" onclick="window.location.href='main.php'">Main page</button>
 	</body>
 </html>

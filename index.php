@@ -17,7 +17,7 @@
 	<body>
 		<div class="container">
 		
-			<form action ="login.php" method = "post">
+			<form action ="login2.php" method = "post">
 				<label for = "login">Login:</label>
 				<input type ="text" name = "login"><br><br>
 			
