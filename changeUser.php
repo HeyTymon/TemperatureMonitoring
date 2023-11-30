@@ -12,6 +12,12 @@
         exit();
     }
 
+    if($_POST['selectUser'] == "admin" || $_POST['selectUser'] == $_SESSION['login']) {
+        $_SESSION['changeUserSession'] = "You can not change this user, because his account is logined or 'admin'";
+        header('Location: settings.php');
+        exit();
+    }
+
     require_once "connection.php";
 
     $connection = new mysqli($host, $user, $password, $dbName);
@@ -32,13 +38,6 @@
     $result1 = $connection->query($sqlQuery);
     if($result1->num_rows == 1) { 
         $row = $result1->fetch_assoc();
-
-        if($row['isAdmin'] == 1) {
-            $_SESSION['changeUserSession'] = "You can not change admin!";
-            header('Location: settings.php');
-            $connection->close();
-            exit();
-        }
 
         $changeUserNameX = ($_POST['changeUserName'] == NULL) ? $row['login'] : $_POST['changeUserName'];
         $changeUserPasswordX = ($_POST['changeUserPassword'] == NULL) ? $row['password'] : $_POST['changeUserPassword'];

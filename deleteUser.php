@@ -9,6 +9,12 @@
         $_SESSION['deleteUserSession'] = "Wrong admin password!";
         header('Location: settings.php');
         exit();
+    } 
+
+    if($_POST['deleteUserName'] == "admin" || $_POST['deleteUserName'] == $_SESSION['login']) {
+        $_SESSION['deleteUserSession'] = "You can not delete this user, because his account is logined or 'admin'";
+        header('Location: settings.php');
+        exit();
     }
 
     require_once "connection.php";
@@ -20,15 +26,13 @@
     } else {
         
         $sqlQuerry1 = "SELECT * FROM `users` WHERE `login` = '" . $connection->real_escape_string($_POST['deleteUserName']) . "'";
-        $sqlQuerry2 = "SELECT * FROM `users` WHERE `login` = '" . $connection->real_escape_string($_POST['deleteUserName']) . "' AND `isAdmin` = 0";
 
         $result1 = $connection->query($sqlQuerry1);
-        $result2 = $connection->query($sqlQuerry2);
 
         if($result1->num_rows == 0) {
             $_SESSION['deleteUserSession'] = "User does not exist";
             header('Location: settings.php');
-        } else if($result2->num_rows == 1) {
+        } else {
 
             $sqlQuery = "DELETE FROM `users` WHERE `login` = ?";
             $stmt = $connection->prepare($sqlQuery);
@@ -48,10 +52,7 @@
                 header('Location: settings.php');
             }
 
-        } else {
-            $_SESSION['deleteUserSession'] = "You can not delete admin";
-            header('Location: settings.php');
-        }
+        } 
     }
 
     $connection->close();

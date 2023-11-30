@@ -10,7 +10,6 @@
 
 	$connection = @new mysqli($host, $user, $password, $dbName);
 
-    $_SESSION['password'] = $_POST['password'];
 
     if($connection->connect_errno != 0){
 		echo "Error: ".$connection->connect_errno;
