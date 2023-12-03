@@ -25,7 +25,7 @@
 							<input type = "number" step = "0.01" name = "temp" placeholder = "20.00" required>
 							<br> 
 							<label for = "clusterTemp">Enter cluster number:</label>
-							<input type = "number"  name = "clusterTemp" min="1" max="100" placeholder = "1" required>
+							<input type = "number"  name = "clusterTemp" min="0" max="100" placeholder = "1" required>
 							<br>
 							<input type = "submit" value = "Submit target temperature" name = "set">
 							<input type = "submit" value = "Reset servo position" name = "reset">

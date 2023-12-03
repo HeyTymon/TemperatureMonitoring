@@ -76,8 +76,10 @@ a:hover, .back-button:hover {
 }
 
 table {
-    width: 48%; 
+    width: calc(33.33% - 20px);
     margin-bottom: 20px;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 table, th, td {
@@ -87,7 +89,7 @@ table, th, td {
 
 th, td {
     padding: 10px;
-    text-align: left;
+    text-align: center; 
 }
 
 th {
@@ -95,7 +97,6 @@ th {
     color: #fff;
 }
 
-/* Now add style for the main button */
 .main-button {
     background-color: #3498db;
     color: #fff;

@@ -17,7 +17,6 @@
 				if ($result->num_rows > 0) {
 					while ($row = $result->fetch_assoc()) {
 						echo "<tr>";
-						echo "<td>" . $row["id"] . "</td>";
 						echo "<td>" . $row["$columnName"] . "</td>";
 						echo "<td>" . $row["date"] . "</td>";
 						echo "<td>" . $row["sensorName"] . "</td>";
@@ -28,7 +27,7 @@
 							echo "No data";
 						}
 						} else {
-							echo "Error SQL";
+							echo "Error SQL" . $connection->error;
 						}
 					}
 	}
@@ -65,11 +64,18 @@
                 <section id = "filterTheMeasurements"> 
                     <h1>Filter the measurements</h1>
 					<form  action = "filterDays.php" method = "post">
+						<label for = "parameter">Choose parameter:</label>
 						<select name = "parameter">
 							<option>Maximum values</option>
-							<option>Minmum values</option>
+							<option>Minimum values</option>
                             <option>Average values</option>
                             <option>Amplitude</option>
+						</select><br>
+						<br>
+						<label for = "dateFilter">Choose date filter:</label>
+						<select name = "dateFilter">
+							<option>ASC</option>
+							<option>DESC</option>
 						</select><br>
                         <input type ="submit" value = "Filter">
                     </form>
@@ -79,7 +85,6 @@
 					<table border="1" name = "tabel1">
 
 							<tr>
-								<th>ID</th>
 								<th>Temperature</th>
 								<th>Date</th>
 								<th>Sensor name</th>
@@ -96,7 +101,6 @@
 				<section id = "humiditySection">
 					<table border="1" name = "tabel2">
 							<tr>
-								<th>ID</th>
 								<th>Humidity</th>
 								<th>Date</th>
 								<th>Sensor name</th>

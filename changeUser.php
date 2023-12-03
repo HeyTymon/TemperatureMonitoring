@@ -62,6 +62,5 @@
         header('Location: settings.php');
     }
 
-
     $connection->close();
 ?>

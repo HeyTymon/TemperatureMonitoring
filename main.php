@@ -83,7 +83,7 @@
 							if(isset($_SESSION['filterValues1'])) {
 								$sql = $_SESSION['filterValues1'];
 							} else {
-								$sql = "SELECT id, temperature, date, sensorName, cluster FROM measurementstoday WHERE cluster = 0 ORDER BY date DESC LIMIT 50";
+								$sql = "SELECT id, temperature, date, sensorName, cluster FROM measurementstoday WHERE cluster = 2 ORDER BY date DESC LIMIT 50";
 							}
 							
 							$result = $connection->query($sql);
@@ -128,7 +128,7 @@
 							if(isset($_SESSION['filterValues2'])) {
 								$sql = $_SESSION['filterValues2'];
 							} else {
-								$sql = "SELECT id, humidity, date, sensorName, cluster FROM measurementstoday WHERE cluster = 0 ORDER BY date DESC LIMIT 50";
+								$sql = "SELECT id, humidity, date, sensorName, cluster FROM measurementstoday WHERE cluster = 2 ORDER BY date DESC LIMIT 50";
 							}
 
 							$result = $connection->query($sql);
