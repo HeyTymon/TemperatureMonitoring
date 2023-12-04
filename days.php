@@ -19,7 +19,7 @@
 						echo "<tr>";
 						echo "<td>" . $row["$columnName"] . "</td>";
 						echo "<td>" . $row["date"] . "</td>";
-						echo "<td>" . $row["sensorName"] . "</td>";
+						if(isset($_SESSION["sensorNameSession"])) echo "<td>" . $row["sensorName"] . "</td>";
                         echo "<td>" . $row["cluster"] . "</td>";
 						echo "</tr>";
 							}
@@ -47,6 +47,7 @@
         $sqlQuery2 = "SELECT `id`, MAX(humidity) AS maxHumidity, CAST(`date` AS DATE) AS date, `sensorName`, `cluster` FROM `measurementstoday` GROUP BY CAST(`date` AS DATE)";
         $columnName1 = "maxTemperature";
         $columnName2 = "maxHumidity";
+		$_SESSION["sensorNameSession"] = 1;
     }
 
 ?>	
@@ -87,7 +88,9 @@
 							<tr>
 								<th>Temperature</th>
 								<th>Date</th>
-								<th>Sensor name</th>
+								<?php 
+									if(isset($_SESSION["sensorNameSession"])) echo "<th>Sensor name</th>";
+								?>
                                 <th>Cluster</th>
 							</tr>
 
@@ -103,7 +106,9 @@
 							<tr>
 								<th>Humidity</th>
 								<th>Date</th>
-								<th>Sensor name</th>
+								<?php 
+									if(isset($_SESSION["sensorNameSession"])) echo "<th>Sensor name</th>";
+								?>
                                 <th>Cluster</th>
 							</tr>
 
@@ -117,6 +122,7 @@
 				<button onclick="window.location.href='main.php'">Main page</button>
 
 				<?php 
+					unset($_SESSION["sensorNameSession"]);
 					$connection->close(); 
 				?>
 			</article>

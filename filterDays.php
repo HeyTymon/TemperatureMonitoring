@@ -26,6 +26,7 @@
             $_SESSION['filterDaysValues2'] = $sqlQuery21;
             $_SESSION['columnName1'] = "maxTemperature";
             $_SESSION['columnName2'] = "maxHumidity";
+            $_SESSION["sensorNameSession"] = 1;
         } break;
 
         case "Minimum values" : {
@@ -33,6 +34,7 @@
             $_SESSION['filterDaysValues2'] = $sqlQuery22;
             $_SESSION['columnName1'] = "minTemperature";
             $_SESSION['columnName2'] = "minHumidity";
+            $_SESSION["sensorNameSession"] = 1;
         } break;
 
         case "Average values" : {
