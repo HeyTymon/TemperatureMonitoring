@@ -47,10 +47,11 @@
             'content' => http_build_query($data),),);
 
         $context  = stream_context_create($options);
+        $_start = microtime(true); // czas start!
         $result = file_get_contents($url, false, $context);   
-        
+        $_stop = microtime(true); // zatrzymaj stoper
         if($result !== false) {
-            $_SESSION['tempUpToDate'] = "Target temperature was sent to controller";
+            $_SESSION['tempUpToDate'] = "Target temperature was sent to controller - ".(round(($_stop-$_start),3));
             header('Location: settings.php');
         } else {
             $_SESSION['tempUpToDate'] = "An error occurred during temperature setting";
