@@ -7,7 +7,17 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT `temperature`, `humidity`, `date` FROM measurementstoday";
+    $sql = "SELECT
+  ROUND(AVG(`temperature`), 2) AS avg_temperature,
+  ROUND(AVG(`humidity`), 2) AS avg_humidity,
+  DATE_FORMAT(`date`, '%Y-%m-%d %H:00:00') AS hour,
+  `sensorName`
+FROM
+  measurementstoday
+GROUP BY
+  hour, `sensorName`
+ORDER BY
+  hour";
     $result = $conn->query($sql);
 
     $data = array();
