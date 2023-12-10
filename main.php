@@ -25,6 +25,33 @@
 						echo "Welcome ".$_SESSION['login'].", today is ";
 						date_default_timezone_set('Europe/Warsaw');
 						echo date('F j, Y');
+						echo "</h2>";
+						$connection = new mysqli($host, $user, $password, $dbName);
+				
+							if ($connection->connect_error) {
+								die("Error: " . $connection->connect_error);
+							}
+
+							$sql = "SELECT
+							ROUND(AVG(`temperature`), 2) AS avg_temperature,
+							ROUND(AVG(`humidity`), 2) AS avg_humidity
+							FROM
+							(
+								SELECT
+									`temperature`,
+									`humidity`,
+									ROW_NUMBER() OVER (ORDER BY `date` DESC) AS row_num
+								FROM
+									measurementstoday
+							) AS subquery
+							WHERE
+							subquery.row_num <= 3";
+
+							echo "<h2>";
+							$result = $connection->query($sql);
+							echo " \n Average temperature: ".$result->fetch_assoc()['avg_temperature']."°C";
+							echo ", average humidity: --";
+							$connection->close();
 					?>
 				</h2>
 		</header>
